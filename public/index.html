@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>SIT</title>
+        <meta name="viewport" content="width=device-width, user-scalable=no">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.css">
+        <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
+        <script src="/controller/conection.js" ></script>
+        <script src="controller/auth.js"></script>
+        <style>
+            body{
+
+            }
+            body > .grid {
+              height: 100%;
+            }
+            .column {
+              max-width: 450px;
+            margin-top: 200px;
+            }
+             .footer.segment {
+                display: inline-block;
+                 width: 100%;
+                 height: 35%;
+            }
+        </style>
+    </head>
+    <body>
+        <!--<header id="includedContent"></header>
+        <!--  -->
+        <div class="ui footer inverted teal segment ">
+            <div class="ui middle aligned center aligned grid">
+                  <div class="column">
+                    <form class="ui large form">
+                      <div class="ui stacked segment">
+                        <div class="field">
+                         <div class="ui left icon input">
+                            <!--<i class="user icon"></i> -->
+                            <input type="text" id="email" placeholder="Correo Electronico">
+                          </div>
+                        </div>
+                        <div class="field">
+                          <div class="ui left icon input">
+        <!--                    <i class="lock icon"></i>-->
+                            <input type="password" id="password" placeholder="Contraseña">
+                          </div>
+                        </div>
+                        <div class="ui fluid large teal submit button" id="handleLogin">Ingresar</div>
+                        <div class="ui fluid large teal submit button" id="registrar">Registrarse</div>
+                        <div class="ui fluid large teal submit button" id="resetPass">Resetear contraseña</div>
+                      </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+    <!--<script src="js/control.js"></script>-->
+</html>

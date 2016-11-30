@@ -1,0 +1,104 @@
+       <div class="ui segments">
+        <div class="ui segment">
+            <p>Empresa</p>
+        </div>
+        <div class="ui secondary blue segment">
+            <div class="ui form">
+                <div class="fields">
+                    <div class="field">
+                        <label>Nombre</label>
+                        <input type="text" id="nombreE" placeholder="Nombre">
+                    </div>
+                    <div class="field">
+                        <label>Giro</label>
+                        <input type="text" id="giro" placeholder="Giro">
+                    </div>
+                    <div class="field">
+                        <label>RFC</label>
+                        <input type="text" id="rfc" placeholder="RFC">
+                    </div>
+                </div>
+                <div class="ui animated button" tabindex="0">
+                <div class="visible content">Guardar</div>
+                <div class="hidden content" id="Empresa">
+                    <i class="send icon"></i>
+                </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+     <div class="ui segments">
+        <div class="ui red segment">
+            <p>Empleado</p>
+        </div>
+        <div class="ui secondary red segment">
+            <div class="ui form">
+                <div class="fields">
+                    <div class="field">
+                        <label>Nombre</label>
+                        <input type="text" id="nombre" placeholder="Nombre">
+                    </div>
+                    <div class="field">
+                        <label>Apellido</label>
+                        <input type="text" id="apellido" placeholder="Apellido">
+                    </div>
+                    <div class="field">
+                        <label>Puesto</label>
+                        <input type="text" id="puesto" placeholder="Puesto">
+                    </div>
+                </div>
+                <div class="ui animated button" tabindex="0" id="Empleado">
+                    <div class="visible content">Guardar</div>
+                    <div class="hidden content" id="Empresa">
+                        <i class="send icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/controller/conection.js" ></script>
+   <script>
+
+        // Get a reference to the database service
+            var database = firebase.database();
+
+            function addEmpleado(){
+                writeUserData(document.getElementById('nombre').value,
+                              document.getElementById('apellido').value,
+                              document.getElementById('puesto').value);
+
+                document.getElementById('nombre').value = "";
+                document.getElementById('apellido').value = "";
+                document.getElementById('puesto').value = "";
+            }
+            function addEmpresa(){
+                writeEmpresaData(document.getElementById('nombreE').value,
+                              document.getElementById('giro').value,
+                              document.getElementById('rfc').value);
+
+                document.getElementById('nombreE').value = "";
+                document.getElementById('giro').value = "";
+                document.getElementById('rfc').value = "";
+            }
+
+            function writeUserData(nombre, apellido, puesto) {
+                var user = firebase.auth().currentUser;
+                  firebase.database().ref('users/'+user.uid).push().set({
+                    username: nombre,
+                    lastname: apellido,
+                    ocupacion : puesto
+                  });
+            }
+            function writeEmpresaData(nombreE, giro, rfc) {
+                var user = firebase.auth().currentUser;
+                  firebase.database().ref('empresa/'+user.uid).push().set({
+                    usernameE: nombreE,
+                    giro: giro,
+                    rfc : rfc
+                  });
+            }
+            document.getElementById('Empleado').addEventListener('click', addEmpleado, false);
+            document.getElementById('Empresa').addEventListener('click', addEmpresa, false);
+
+</script>
