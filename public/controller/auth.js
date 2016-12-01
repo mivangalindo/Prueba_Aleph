@@ -93,8 +93,8 @@ function initApp() {
           var isAnonymous = user.isAnonymous;
           var uid = user.uid;
           var providerData = user.providerData;*/
-            window.location="https://prueba-aleph.firebaseapp.com/main.html";       //WEB
-           // window.location="http://localhost:5000/main.html";                      //LOCAL
+            //window.location="https://prueba-aleph.firebaseapp.com/main.html";       //WEB
+           window.location="http://localhost:5000/main.html";                      //LOCAL
         }else{
 
         }

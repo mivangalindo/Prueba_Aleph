@@ -63,7 +63,7 @@
             });
         }
         function drawTable(username,lastname,ocupacion){
-            var html = ' <tr>  ' +
+            var html =
                 '<td class="collapsing">'+
                     '<div class="ui fitted slider checkbox">'+
                         '<input type="checkbox"> <label></label>'+
@@ -72,12 +72,11 @@
                 '<td>'+username+'</td>'+
                 '<td>'+lastname+'</td>'+
                 '<td>'+ocupacion+'</td>'+
-                '<td>No</td>'+
-                '</tr>'+
-            '<tr>';
+                '<td>No</td>';
             var table = document.getElementById('table');
-            table.innerHTML = html;
-            var postElement = table.firstChild;
+            var newUser = document.createElement('tr')
+            newUser.innerHTML = html;
+            var postElement = table.appendChild(newUser);
         }
     </script>
 </html>
