@@ -5,10 +5,39 @@
         <title>SIT</title>
         <meta name="viewport" content="width=device-width, user-scalable=no">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.css">
+                <script>
+            function initApp() {
+                  firebase.auth().onAuthStateChanged(function(user) {
+                    if (user) {
+                        //alert('sesion');
+                      // User is signed in.
+                      /*var displayName = user.displayName;
+                      var email = user.email;
+                      var emailVerified = user.emailVerified;
+                      var photoURL = user.photoURL;
+                      var isAnonymous = user.isAnonymous;
+                      var uid = user.uid;
+                      var providerData = user.providerData;*/
+                        //window.location="https://prueba-aleph.firebaseapp.com/main.html";       //WEB
+                       window.location="https://aleph-b9912.firebaseapp.com/main.html";                      //LOCAL
+                    }else{
+
+                    }
+                  });
+                  document.getElementById('handleLogin').addEventListener('click', toggleSignIn, false);
+                  document.getElementById('registrar').addEventListener('click', registro, false);
+                  document.getElementById('resetPass').addEventListener('click', sendPasswordReset, false);
+
+            }
+            window.onload = function() {
+              initApp();
+            };
+        </script>
         <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
         <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
-        <script src="/controller/conection.js" ></script>
+        <script src="/js/conexion.js" ></script>
         <script src="controller/auth.js"></script>
+
         <style>
             body{
 
@@ -28,7 +57,7 @@
         </style>
     </head>
     <body>
-        <!--<header id="includedContent"></header>
+        <!--<header id="barraMenu"></header>
         <!--  -->
         <div class="ui footer inverted teal segment ">
             <div class="ui middle aligned center aligned grid">
@@ -56,5 +85,5 @@
             </div>
         </div>
     </body>
-    <!--<script src="js/control.js"></script>-->
+    <!--<script src="js/traerContenido.js"></script>-->
 </html>
