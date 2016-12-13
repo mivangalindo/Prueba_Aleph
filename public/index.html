@@ -5,7 +5,11 @@
         <title>SIT</title>
         <meta name="viewport" content="width=device-width, user-scalable=no">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.css">
-                <script>
+        <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
+        <script src="/js/conexion.js" ></script>
+        <script src="js/autentificar.js"></script>
+        <script>
             function initApp() {
                   firebase.auth().onAuthStateChanged(function(user) {
                     if (user) {
@@ -33,11 +37,6 @@
               initApp();
             };
         </script>
-        <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
-        <script src="/js/conexion.js" ></script>
-        <script src="controller/auth.js"></script>
-
         <style>
             body{
 

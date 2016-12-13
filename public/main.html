@@ -12,7 +12,67 @@
     <body>
         <script src="js/checarConexion.js"></script>
         <header id="barraMenu"></header>
-        <main id="registros"></main>
+           <div class="ui segments">
+                <div class="ui segment">
+                    <p>Empresa</p>
+                </div>
+                <div class="ui secondary blue segment">
+                    <div class="ui form">
+                        <div class="fields">
+                            <div class="field">
+                                <label>Nombre</label>
+                                <input type="text" id="nombreE" placeholder="Nombre">
+                            </div>
+                            <div class="field">
+                                <label>Giro</label>
+                                <input type="text" id="giro" placeholder="Giro">
+                            </div>
+                            <div class="field">
+                                <label>RFC</label>
+                                <input type="text" id="rfc" placeholder="RFC">
+                            </div>
+                        </div>
+                        <div class="ui animated button" tabindex="0">
+                        <div class="visible content">Guardar</div>
+                        <div class="hidden content" id="Empresa">
+                            <i class="send icon"></i>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+             <div class="ui segments">
+                <div class="ui red segment">
+                    <p>Empleado</p>
+                </div>
+                <div class="ui secondary red segment">
+                    <div class="ui form">
+                        <div class="fields">
+                            <div class="field">
+                                <label>Nombre</label>
+                                <input type="text" id="nombre" placeholder="Nombre">
+                            </div>
+                            <div class="field">
+                                <label>Apellido</label>
+                                <input type="text" id="apellido" placeholder="Apellido">
+                            </div>
+                            <div class="field">
+                                <label>Puesto</label>
+                                <input type="text" id="puesto" placeholder="Puesto">
+                            </div>
+                        </div>
+                        <div class="ui animated button" tabindex="0" id="Empleado">
+                            <div class="visible content">Guardar</div>
+                            <div class="hidden content" id="Empresa">
+                                <i class="send icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <script src="/js/conexion.js" ></script>
+        <script src="/js/subirUsuarioEmpresaABD.js"></script>
     </body>
     <script src="js/traerContenido.js"></script>
 </html>
