@@ -1,4 +1,4 @@
-  // Initialize Firebase
+  /*// Initialize Firebase
   var config = {
     apiKey: "AIzaSyBmT13-IEfdNNy81nRZ3rVHgxhncqLaXdU",
     authDomain: "disenho-c9efe.firebaseapp.com",
@@ -17,3 +17,12 @@
   };
   firebase.initializeApp(config);
 */
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAvmvFBG5e28FEVQanFiw44jfOEatGmsOs",
+    authDomain: "aleph-b9912.firebaseapp.com",
+    databaseURL: "https://aleph-b9912.firebaseio.com",
+    storageBucket: "aleph-b9912.appspot.com",
+    messagingSenderId: "968391629078"
+  };
+  firebase.initializeApp(config);

@@ -24,7 +24,7 @@ function toggleSignIn() {
             alert(errorMessage);
           }
           console.log(error);
-          window.open("http://localhost:5000/main.html");
+          window.open("https://aleph-b9912.firebaseapp.com/main.html");
         });
       }
 }
@@ -94,7 +94,7 @@ function initApp() {
           var uid = user.uid;
           var providerData = user.providerData;*/
             //window.location="https://prueba-aleph.firebaseapp.com/main.html";       //WEB
-           window.location="http://localhost:5000/main.html";                      //LOCAL
+           window.location="https://aleph-b9912.firebaseapp.com/main.html";                      //LOCAL
         }else{
 
         }
