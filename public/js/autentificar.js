@@ -65,4 +65,7 @@ function sendPasswordReset() {
         }
         console.log(error);
       });
-    }
+}
+function SIT(){
+    window.open("https://aleph-b9912.firebaseapp.com/Sit.html");
+}
