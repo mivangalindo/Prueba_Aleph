@@ -2,19 +2,47 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>SIT2</title>
+        <title>SIT</title>
         <meta name="viewport" content="width=device-width, user-scalable=no">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.css">
         <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
         <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
         <script src="/js/conexion.js" ></script>
         <script>
+            function preSignIn(){
+                var email = document.getElementById('email').value;
+                var password = document.getElementById('password').value;
+
+                firebase.database().ref('empresasPendientes/').on('child_added', function(data) {
+                   firebase.database().ref('empresasPendientes/'+data.key).once('value').then(function(snapshot) {
+                        //alert(snapshot.val().correoCEO);
+                        var email2 = snapshot.val().correoCEO;
+                        if(email == 'hola')
+                            alert('si puto!');
+                        if(email == email2)
+                            alert('a la verga puto');
+                    });
+
+
+
+                    /*if(email.equals(data.val())){
+                        firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+                            var errorCode = error.code;
+                            var errorMessage = error.message;
+                            if (errorCode == 'auth/weak-password') {
+                              alert('La contraseña es muy debil.');
+                            } else {
+                              alert(errorMessage);
+                            }
+                            console.log(error);
+                        });
+                    }else{
+                        alert('NO');
+                    }*/
+                });
+                //toggleSignIn();
+            }
             function toggleSignIn() {
-                  if (firebase.auth().currentUser) {
-                    // [START signout]
-                    firebase.auth().signOut();
-                    alert("Sesión cerrada.")
-                  } else {
                     var email = document.getElementById('email').value;
                     var password = document.getElementById('password').value;
                     if (email.length < 4) {
@@ -34,9 +62,7 @@
                         alert(errorMessage);
                       }
                       console.log(error);
-                      //window.open("https://aleph-b9912.firebaseapp.com/Main.html");
                     });
-                  }
             }
             function sendPasswordReset() {
                   var email = document.getElementById('email').value;
@@ -58,21 +84,28 @@
                 var user = firebase.auth().currentUser;
                 firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
                     var administrador = snapshot.val().administrador;
-                    switch(administrador){
-                        case 0:
-                            window.location="https://aleph-b9912.firebaseapp.com/MainAleph.html";
-                            break;
-                        case 1:
-                            break;
-                        case 2:
-                            break;
-                        case 3:
-                            break;
-                        case 4:
-                            break;
-                        default:
-
-                    }
+                    firebase.database().ref('/Niveles/').once('value').then(function(snapshot) {
+                        var dios        = snapshot.val().Dios;
+                        var ceo         = snapshot.val().CEO;
+                        var directores  = snapshot.val().Directores;
+                        var jefes       = snapshot.val().Jefes;
+                        var subordinados= snapshot.val().Subordinados;
+                        switch(administrador){
+                            case dios:
+                                window.location="https://aleph-b9912.firebaseapp.com/MainAleph.html";
+                                break;
+                            case ceo:
+                                break;
+                            case directores:
+                                break;
+                            case jefes:
+                                break;
+                            case subordinados:
+                                break;
+                            default:
+                                alert('default');
+                        }
+                    });
                 });
             }
             function initApp() {
@@ -82,7 +115,8 @@
                         //window.location="https://aleph-b9912.firebaseapp.com/main.html";                    //LOCAL
                     }else{}
                   });
-                  document.getElementById('handleLogin').addEventListener('click', toggleSignIn, false);
+                  document.getElementById('handleLogin').addEventListener('click', preSignIn, false);
+                    //document.getElementById('handleLogin').addEventListener('click', toggleSignIn, false);
                   document.getElementById('resetPass').addEventListener('click', sendPasswordReset, false);
             }
             window.onload = function() {

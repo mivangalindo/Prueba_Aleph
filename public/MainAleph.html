@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Mainw</title>
+        <title>Main</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.css">
         <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -11,53 +11,28 @@
         <script>
             function guardarEmpresa(){
                 var empresa = document.getElementById('empresa').value;
-                var nombreCEO = document.getElementById('nombreCEO').value;
                 var correoceo = document.getElementById('correoCEO').value;
-                var passwordceo = document.getElementById('passwordCEO').value;
-                if (empresa.length < 4) {
+                if (empresa.length == 0) {
                     alert('Ingresa una empresa para registrarte.');
                     return;
                 }
-                if (nombreCEO.length < 4) {
-                    alert('Ingresa un nombre para registrarte.');
-                    return;
-                }
-                if (correoceo.length < 4) {
+                if (correoceo.length == 0) {
                     alert('Ingresa un correo para el CEO de ' + empresa + '.');
                     return;
                 }
-                if (passwordceo.length < 4) {
-                    alert('Ingresa una contraseña para el CEO de ' + empresa + '.');
-                    return;
-                }
-                firebase.auth().createUserWithEmailAndPassword(correoceo, passwordceo).catch(function(error) {
-                    var userId = firebase.auth().currentUser.uid;
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    if (errorCode == 'auth/weak-password') {
-                        alert('La contraseña es muy debil.');
-                    } else {
-                        alert(errorMessage);
-                    }
-                    alert('holi');
-                    console.log(error);
-                });
-                /*var database = firebase.database();
-                firebase.database().ref('empresas/'+empresa).set({
-                    nombre: empresa,
-                });
                 var database = firebase.database();
-                firebase.database().ref('users/').set({
-                    empresa: empresa,
-                    nombre: nombreCEO
-                });*/
+                firebase.database().ref('empresasPendientes/' + empresa + '/').set({
+                    correoCEO: correoceo
+                });
                 document.getElementById('empresa').value = "";
-                document.getElementById('nombreCEO').value = "";
                 document.getElementById('correoCEO').value = "";
-                document.getElementById('passwordCEO').value = "";
             }
             function initApp(){
                 document.getElementById('Empresa').addEventListener('click', guardarEmpresa, false);
+                document.getElementById('usuario').addEventListener('click', usuario, false);
+            }
+            function usuario(){
+                alert(firebase.auth().currentUser.email);
             }
             window.onload = function() {
               initApp();
@@ -65,16 +40,21 @@
         </script>
     </head>
     <body>
-        <script src="js/checarConexion.js"></script>
+        <!--<script src="js/checarConexion.js"></script>-->
+        <script src="/js/Dios.js" ></script>
         <header id="barraMenu"></header>
         <input type="text" id="empresa" placeholder="Nombre Empresa"><br>
-        <input type="text" id="nombreCEO" placeholder="Nombre CEO"><br>
         <input type="text" id="correoCEO" placeholder="Correo CEO"><br>
-        <input type="text" id="passwordCEO" placeholder="Contraseña CEO"><br>
 
         <div class="ui animated button" tabindex="0" id="Empresa">
             <div class="visible content">Agregar Empresas</div>
             <div class="hidden content" id="Empresa">
+                <i class="send icon"></i>
+            </div>
+        </div>
+        <div class="ui animated button" tabindex="0" id="usuario">
+            <div class="visible content">usuario</div>
+            <div class="hidden content" id="usuario">
                 <i class="send icon"></i>
             </div>
         </div>
