@@ -1,44 +1,20 @@
 function toggleSignIn() {
-      if (firebase.auth().currentUser) {
-        // [START signout]
-        firebase.auth().signOut();
-        alert("Sesión cerrada.")
-
-      } else {
         var email = document.getElementById('email').value;
         var password = document.getElementById('password').value;
-        if (email.length < 4) {
-          alert('Ingresa un correo');
-          return;
-        }
-        if (password.length < 4) {
-          alert('Ingresa una cotraseña');
-          return;
-        }
         firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
           var errorCode = error.code;
           var errorMessage = error.message;
           if (errorCode === 'auth/wrong-password') {
-            alert('Contraseña incorrecta');
+            alert('Contraseña incorrecta autentificar.js');
           } else {
             alert(errorMessage);
           }
-          console.log(error);
-          window.open("https://aleph-b9912.firebaseapp.com/main.html");
+          console.log(error)
         });
-      }
 }
 function registro(){
       var email = document.getElementById('email').value;
       var password = document.getElementById('password').value;
-      if (email.length < 4) {
-        alert('Ingresa un correo para registrarte.');
-        return;
-      }
-      if (password.length < 4) {
-        alert('Ingresa una contraseña.');
-        return;
-      }
       firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
         var errorCode = error.code;
         var errorMessage = error.message;
