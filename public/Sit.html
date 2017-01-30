@@ -5,49 +5,68 @@
         <title>SIT</title>
         <meta name="viewport" content="width=device-width, user-scalable=no">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
         <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
         <script src="/js/conexion.js" ></script>
         <script src="/js/autentificar.js" ></script>
         <script>
-            function preSignIn(){
-                var x = 1;
+            var empresa;
+            var emailEmpresa;
+            var inicioDirecto = 1;
+            function newEmpresa(){
+                var password = document.getElementById('password').value;
+                if(password >= 6){
+                        registro();
+                        firebase.auth().onAuthStateChanged(function(user) {
+                            firebase.database().ref('/Niveles/').once('value').then(function(snapshot) {
+                                var ceo = snapshot.val().CEO;
+                                firebase.database().ref('users/' + user.uid).set({
+                                    administrador   : ceo,
+                                    puesto          : 'CEO',
+                                    area            : 'CEO',
+                                    correo          : emailEmpresa,
+                                    empresa         : empresa
+                                });
+                                firebase.database().ref('empresa/' + empresa).set({
+                                    nombre          : empresa,
+                                    mision          : 'Misión',
+                                    vision          : 'Visión',
+                                    valores         : 'Valores',
+                                    responsable     : 'Responsable'
+                                });
+                            });
+                        });
+                        firebase.database().ref('empresasPendientes/'+empresa).remove();
+                        setTimeout(function(){
+                            inicioUnico();
+                        }, 1000);
+                }else{
+                    alert('La contraseña debe contener al menos 6 caracteres.');
+                }
+            }
+            function presiona(){
+                inicioDirecto = 0;
+                var masDeUno = 0;
                 firebase.database().ref('empresasPendientes/').on('child_added', function(data) {
                    firebase.database().ref('empresasPendientes/'+data.key).once('value').then(function(snapshot) {
-                        var email = document.getElementById('email').value;
-                        var password = document.getElementById('password').value;
+                        emailEmpresa = document.getElementById('email').value;
                         var email2 = snapshot.val().correoCEO;
-                        if(email == email2){
-                            x = 0;
-                            if(password >= 6){
-                                if(email == email2){
-                                    registro();
-                                    firebase.auth().onAuthStateChanged(function(user) {
-                                        firebase.database().ref('/Niveles/').once('value').then(function(snapshot) {
-                                            var ceo = snapshot.val().CEO;
-                                            firebase.database().ref('users/' + user.uid + '/').set({
-                                                administrador   : ceo,
-                                                puesto          : 'CEO',
-                                                area            : 'CEO',
-                                                correo          : email,
-                                                empresa         : data.key
-                                            });
-                                        });
-                                    });
-                                    firebase.database().ref('empresasPendientes/'+data.key).remove();
-                                }
-                            }
-                            else{
-                                alert('La contraseña debe contener al menos 6 caracteres.');
-                            }
+                        empresa = data.key;
+                        if(emailEmpresa == email2){
+                            masDeUno = 1;
+                            $('#handleLogin').hide();
+                            $('#resetPass').hide();
+                            $('#registroEmpresa').show();
+                            $("#registroEmpresa").text('Registro para '+data.key);
+                            document.getElementById('registroEmpresa').addEventListener('click', newEmpresa, false);
+                        }else if(masDeUno == 0){
+                            $('#registroEmpresa').hide();
+                            $('#handleLogin').show();
+                            $('#resetPass').show();
                         }
                     });
                 });
-                setTimeout(function(){
-                    if(x == 1){
-                        toggleSignIn();
-                    }
-                }, 1000);
             }
             function inicioUnico(){
                 var user = firebase.auth().currentUser;
@@ -80,26 +99,24 @@
             }
             function initApp() {
                   firebase.auth().onAuthStateChanged(function(user) {
-                    if (user) {
-                        setTimeout(function(){
-                            inicioUnico();
-                            //alert('inicio');
-                        }, 1000);
+                    if (user && inicioDirecto == 1) {
+                        inicioUnico();
                     }
                   });
-                  document.getElementById('handleLogin').addEventListener('click', preSignIn, false);
-                    //document.getElementById('handleLogin').addEventListener('click', toggleSignIn, false);
-                  document.getElementById('resetPass').addEventListener('click', sendPasswordReset, false);
-                    document.getElementById('logout').addEventListener('click', logout, false);
+                document.getElementById('handleLogin').addEventListener('click', toggleSignIn, false);
+                document.getElementById('resetPass').addEventListener('click', sendPasswordReset, false);
+                document.getElementById('logout').addEventListener('click', logout, false);
+                document.getElementById('email').addEventListener('keyup', presiona, false);
+                //document.getElementById('registroEmpresa').addEventListener('click', newEmpresa, false);
+                $('#registroEmpresa').hide();
             }
             window.onload = function() {
               initApp();
             };
             function logout(){
                 firebase.auth().signOut();
-                alert('FUera');
+                alert('Fuera');
             }
-
         </script>
         <style>
             body{
@@ -125,12 +142,12 @@
         <div class="ui footer inverted teal segment ">
             <div class="ui middle aligned center aligned grid">
                   <div class="column">
-                    <form class="ui large form">
+                    <div class="ui large form">
                       <div class="ui stacked segment">
                         <div class="field">
                          <div class="ui left icon input">
                             <!--<i class="user icon"></i> -->
-                            <input type="text" id="email" placeholder="Correo Electronico">
+                            <input type="text" class="inputTxt" id="email" placeholder="Correo Electronico">
                           </div>
                         </div>
                         <div class="field">
@@ -139,13 +156,14 @@
                             <input type="password" id="password" placeholder="Contraseña">
                           </div>
                         </div>
-                        <div class="ui fluid large teal submit button" id="handleLogin">Ingresar</div>
-                        <div class="ui fluid large teal submit button" id="resetPass">Resetear contraseña</div>
+                            <button class="ui fluid large teal submit button" id="handleLogin">Ingresar</button>
+                            <button class="ui fluid large teal submit button" id="resetPass">Resetear contraseña</button>
+                            <button class="ui fluid large teal submit button" id="registroEmpresa"></button>
                           <div class="item">
                             <div class="ui fluid large teal submit button" id="logout">Salir</div>
                         </div>
                       </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
