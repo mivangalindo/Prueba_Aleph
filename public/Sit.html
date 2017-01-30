@@ -17,6 +17,7 @@
             function newEmpresa(){
                 var password = document.getElementById('password').value;
                 if(password >= 6){
+                        inicioDirecto = 0;
                         registro();
                         firebase.auth().onAuthStateChanged(function(user) {
                             firebase.database().ref('/Niveles/').once('value').then(function(snapshot) {
@@ -46,7 +47,6 @@
                 }
             }
             function presiona(){
-                inicioDirecto = 0;
                 var masDeUno = 0;
                 firebase.database().ref('empresasPendientes/').on('child_added', function(data) {
                    firebase.database().ref('empresasPendientes/'+data.key).once('value').then(function(snapshot) {
@@ -98,6 +98,8 @@
                 });
             }
             function initApp() {
+                alert(inicioDirecto);
+                alert('user:');
                   firebase.auth().onAuthStateChanged(function(user) {
                     if (user && inicioDirecto == 1) {
                         inicioUnico();
