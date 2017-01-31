@@ -44,6 +44,14 @@
         window.onload = function () {
             initApp();
         };
+
+
+        function logout(){
+            firebase.auth().signOut();
+            window.location="https://aleph-b9912.firebaseapp.com/Sit.html";
+        }
+        document.getElementById('logout').addEventListener('click', logout, false);
+
     </script>
 </head>
 
@@ -74,7 +82,7 @@
 
                         <li><a href="#0">Mi cuenta</a></li>
                         <li><a href="#0">Editar Cuenta</a></li>
-                        <li><a href="#0">Logout</a></li>
+                        <li id="logout"><a>Logout</a></li>
                     </ul>
                 </li>
             </ul>

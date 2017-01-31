@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "aleph-b9912"
+    "default": "aleph-b9912",
+    "alephjoni": "aleph-b9912"
   }
 }

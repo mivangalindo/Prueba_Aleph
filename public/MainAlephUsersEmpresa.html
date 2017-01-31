@@ -5,9 +5,12 @@
     <meta charset="UTF-8">
     <title>Main</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.css">
-    <link rel="stylesheet" href="src/css/reset.css"> <!-- CSS reset -->
-	<link rel="stylesheet" href="src/css/style.css"> <!-- Resource style -->
-	<script src="src/js/modernizr.js"></script> <!-- Modernizr -->
+    <link rel="stylesheet" href="src/css/reset.css">
+    <!-- CSS reset -->
+    <link rel="stylesheet" href="src/css/style.css">
+    <!-- Resource style -->
+    <script src="src/js/modernizr.js"></script>
+    <!-- Modernizr -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
     <script src="/js/conexion.js"></script>
@@ -35,6 +38,7 @@
             document.getElementById('Empresa').addEventListener('click', guardarEmpresa, false);
             document.getElementById('usuario').addEventListener('click', usuario, false);
         }
+
         function usuario() {
             alert(firebase.auth().currentUser.email);
         }
@@ -44,31 +48,38 @@
         };
     </script>
     <script>
-        function edita(id){
-            firebase.database().ref('empresa/'+id).remove();
-            firebase.database().ref('users/'+id).remove();
+        function edita(id) {
+            firebase.database().ref('empresa/' + id).remove();
+            firebase.database().ref('users/' + id).remove();
             //table();
             alert('Eliminado');
             location.reload();
         }
-        function table(){
-            firebase.database().ref('empresa/').on('child_added', function(data) {
-                var starCountRef = firebase.database().ref('empresa/'+data.key);
-                starCountRef.on('value', function(snapshot) {
-                    drawTable(snapshot.val().nombre,data.key);
+
+        function table() {
+            firebase.database().ref('empresa/').on('child_added', function (data) {
+                var starCountRef = firebase.database().ref('empresa/' + data.key);
+                starCountRef.on('value', function (snapshot) {
+                    drawTable(snapshot.val().nombre, data.key);
                 });
             });
         }
-        function drawTable(empresa,key){
+
+        function drawTable(empresa, key) {
             var html =
-                '<td>'+empresa+'</td>'+
-                '<td><button class="ui fluid large red submit button" onclick="edita(this.id)" id="'+key+'">Elimina</button></td>';
+                '<td>' + empresa + '</td>' +
+                '<td><button class="ui fluid large red submit button" onclick="edita(this.id)" id="' + key + '">Elimina</button></td>';
             var table = document.getElementById('table');
             var newUser = document.createElement('tr')
             newUser.innerHTML = html;
             var postElement = table.appendChild(newUser);
         }
 
+        function logout(){
+            firebase.auth().signOut();
+            window.location="https://aleph-b9912.firebaseapp.com/Sit.html";
+        }
+        document.getElementById('logout').addEventListener('click', logout, false);
     </script>
 </head>
 
@@ -99,21 +110,13 @@
 
                         <li><a href="#0">Mi cuenta</a></li>
                         <li><a href="#0">Editar Cuenta</a></li>
-                        <li><a href="#0">Logout</a></li>
+                        <li id="logout"><a>Logout</a></li>
                     </ul>
                 </li>
             </ul>
         </nav>
     </header>
-        <table class="ui compact celled definition table">
-        <thead>
-            <tr>
-            <th>Empresas</th>
-            </tr>
-        </thead>
-        <tbody id="table">
-        </tbody>
-    </table>
+
     <!-- .cd-main-header -->
     <main class="cd-main-content">
         <nav class="cd-side-nav">
@@ -177,33 +180,59 @@
         </nav>
 
         <div class="content-wrapper">
+            <table class="ui compact celled definition table">
+                <thead>
+                    <tr>
+                        <th>Empresas</th>
+                    </tr>
+                </thead>
+                <tbody id="table">
+                </tbody>
+            </table>
 
-            <input type="text" id="empresa" placeholder="Nombre Empresa">
-            <br>
+
+            <button id="show" class="ui test button">Follow</button>
+<div class="ui modal">
+  <i class="close icon"></i>
+  <div class="header">
+    Empresa
+  </div>
+  <div class="image content">
+    <div class="description">
+      <input type="text" id="empresa" placeholder="Nombre Empresa">
+
             <input type="text" id="correoCEO" placeholder="Correo CEO">
-            <br>
 
-            <div class="ui animated button" tabindex="0" id="Empresa">
-                <div class="visible content">Agregar Empresas</div>
-                <div class="hidden content" id="Empresa">
-                    <i class="send icon"></i>
-                </div>
-            </div>
-            <div class="ui animated button" tabindex="0" id="usuario">
-                <div class="visible content">usuario</div>
-                <div class="hidden content" id="usuario">
-                    <i class="send icon"></i>
-                </div>
-            </div>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui black deny button">
+      Nope
+    </div>
+    <div class="ui positive right animated button" tabindex="0" id="Empleado">
+                    <div class="visible content">Guardar</div>
+                    <div class="hidden content" id="Empresa">
+                        <i class="send icon"></i>
+                    </div>
+    </div>
+  </div>
+</div>
+
         </div>
         <!-- .content-wrapper -->
     </main>
 </body>
-    <!-- .cd-main-content -->
-    <script src="/js/conexion.js"></script>
-    <script src="src/js/jquery-2.1.4.js"></script>
-    <script src="src/js/jquery.menu-aim.js"></script>
-    <script src="src/js/main.js"></script>
-    <!-- Resource jQuery -->
-    <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
+<!-- .cd-main-content -->
+<script src="/js/conexion.js"></script>
+<script src="src/js/jquery-2.1.4.js"></script>
+<script src="src/js/jquery.menu-aim.js"></script>
+<script src="src/js/main.js"></script>
+<!-- Resource jQuery -->
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
+<script>
+
+$('.ui.modal')
+  .modal('attach events', '#show', 'show')
+;
+</script>
 </html>
