@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Main</title>
+    <title>Main2</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.css">
     <link rel="stylesheet" href="src/css/reset.css">
     <!-- CSS reset -->
@@ -35,16 +35,21 @@
         }
 
         function initApp() {
+            table();
+            document.getElementById('logout').addEventListener('click', logout, false);
             document.getElementById('Empresa').addEventListener('click', guardarEmpresa, false);
             document.getElementById('usuario').addEventListener('click', usuario, false);
         }
 
+        function logout(){
+            firebase.auth().signOut();
+            window.location="https://aleph-b9912.firebaseapp.com/Sit.html";
+        }
         function usuario() {
             alert(firebase.auth().currentUser.email);
         }
         window.onload = function () {
             initApp();
-            table();
         };
     </script>
     <script>
@@ -74,12 +79,6 @@
             newUser.innerHTML = html;
             var postElement = table.appendChild(newUser);
         }
-
-        function logout(){
-            firebase.auth().signOut();
-            window.location="https://aleph-b9912.firebaseapp.com/Sit.html";
-        }
-        document.getElementById('logout').addEventListener('click', logout, false);
     </script>
 </head>
 
@@ -190,33 +189,30 @@
                 </tbody>
             </table>
 
-
             <button id="show" class="ui test button">Follow</button>
-<div class="ui modal">
-  <i class="close icon"></i>
-  <div class="header">
-    Empresa
-  </div>
-  <div class="image content">
-    <div class="description">
-      <input type="text" id="empresa" placeholder="Nombre Empresa">
-
-            <input type="text" id="correoCEO" placeholder="Correo CEO">
-
-    </div>
-  </div>
-  <div class="actions">
-    <div class="ui black deny button">
-      Nope
-    </div>
-    <div class="ui positive right animated button" tabindex="0" id="Empleado">
+            <div class="ui modal">
+              <i class="close icon"></i>
+              <div class="header">
+                Empresa
+              </div>
+              <div class="image content">
+                <div class="description">
+                    <input type="text" id="empresa" placeholder="Nombre Empresa">
+                    <input type="text" id="correoCEO" placeholder="Correo CEO">
+                </div>
+              </div>
+              <div class="actions">
+                <div class="ui black deny button">
+                  Nope
+                </div>
+                <div class="ui positive right animated button" tabindex="0" id="Empleado">
                     <div class="visible content">Guardar</div>
                     <div class="hidden content" id="Empresa">
                         <i class="send icon"></i>
                     </div>
-    </div>
-  </div>
-</div>
+                </div>
+              </div>
+            </div>
 
         </div>
         <!-- .content-wrapper -->
