@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="src/css/reset.css"> <!-- CSS reset -->
 	<link rel="stylesheet" href="src/css/style.css"> <!-- Resource style -->
 	<script src="src/js/modernizr.js"></script> <!-- Modernizr -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
     <script src="/js/conexion.js"></script>
     <script>
@@ -34,13 +35,40 @@
             document.getElementById('Empresa').addEventListener('click', guardarEmpresa, false);
             document.getElementById('usuario').addEventListener('click', usuario, false);
         }
-
         function usuario() {
             alert(firebase.auth().currentUser.email);
         }
         window.onload = function () {
             initApp();
+            table();
         };
+    </script>
+    <script>
+        function edita(id){
+            firebase.database().ref('empresa/'+id).remove();
+            firebase.database().ref('users/'+id).remove();
+            //table();
+            alert('Eliminado');
+            location.reload();
+        }
+        function table(){
+            firebase.database().ref('empresa/').on('child_added', function(data) {
+                var starCountRef = firebase.database().ref('empresa/'+data.key);
+                starCountRef.on('value', function(snapshot) {
+                    drawTable(snapshot.val().nombre,data.key);
+                });
+            });
+        }
+        function drawTable(empresa,key){
+            var html =
+                '<td>'+empresa+'</td>'+
+                '<td><button class="ui fluid large red submit button" onclick="edita(this.id)" id="'+key+'">Elimina</button></td>';
+            var table = document.getElementById('table');
+            var newUser = document.createElement('tr')
+            newUser.innerHTML = html;
+            var postElement = table.appendChild(newUser);
+        }
+
     </script>
 </head>
 
@@ -77,8 +105,16 @@
             </ul>
         </nav>
     </header>
+        <table class="ui compact celled definition table">
+        <thead>
+            <tr>
+            <th>Empresas</th>
+            </tr>
+        </thead>
+        <tbody id="table">
+        </tbody>
+    </table>
     <!-- .cd-main-header -->
-
     <main class="cd-main-content">
         <nav class="cd-side-nav">
             <ul>
@@ -92,7 +128,6 @@
 						<li><a href="#0">Category 2</a></li>
 					</ul>-->
                 </li>
-
                 <li class="has-children active users">
 
                     <a href="#0">Usuarios<span class="count">3</span></a>
@@ -163,6 +198,7 @@
         </div>
         <!-- .content-wrapper -->
     </main>
+</body>
     <!-- .cd-main-content -->
     <script src="/js/conexion.js"></script>
     <script src="src/js/jquery-2.1.4.js"></script>
@@ -170,6 +206,4 @@
     <script src="src/js/main.js"></script>
     <!-- Resource jQuery -->
     <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
-</body>
-
 </html>

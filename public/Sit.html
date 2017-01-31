@@ -29,7 +29,7 @@
                                     correo          : emailEmpresa,
                                     empresa         : empresa
                                 });
-                                firebase.database().ref('empresa/' + empresa).set({
+                                firebase.database().ref('empresa/' + user.uid).set({
                                     nombre          : empresa,
                                     mision          : 'Misión',
                                     vision          : 'Visión',
@@ -41,7 +41,7 @@
                         firebase.database().ref('empresasPendientes/'+empresa).remove();
                         setTimeout(function(){
                             inicioUnico();
-                        }, 1000);
+                        }, 2000);
                 }else{
                     alert('La contraseña debe contener al menos 6 caracteres.');
                 }
@@ -98,8 +98,6 @@
                 });
             }
             function initApp() {
-                alert(inicioDirecto);
-                alert('user:');
                   firebase.auth().onAuthStateChanged(function(user) {
                     if (user && inicioDirecto == 1) {
                         inicioUnico();
