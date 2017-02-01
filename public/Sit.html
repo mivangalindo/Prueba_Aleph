@@ -74,9 +74,9 @@
                 });
             }
             function inicioUnico(){
+                var user = firebase.auth().currentUser;
                 firebase.database().ref('deletedUsers/' + user.uid).once('value').then(function(snapshot) {
                     if(user.uid == snapshot.val().user){
-                        alert(user.uid);
                         firebase.auth().currentUser.delete().then(function() {
                             alert('Tu cuenta ha sido eliminada.');
                             firebase.database().ref('deletedUsers/'+user.uid).remove();
@@ -85,7 +85,6 @@
                         });
                     }
                 });
-                var user = firebase.auth().currentUser;
                 firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
                     var administrador = snapshot.val().administrador;
                     firebase.database().ref('/Niveles/').once('value').then(function(snapshot) {

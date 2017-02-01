@@ -2,18 +2,20 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>MainCEO2</title>
+        <title>Main CEO</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
         <script src="/js/conexion.js" ></script>
+        <script src="/js/checarConexion.js" ></script>
         <script>
             function initApp(){
-                document.getElementById('usuario').addEventListener('click', usuario, false);
+
             }
             function usuario(){
-                alert(firebase.auth().currentUser.email);
+                alert(firebase.auth().currentUser.uid);
             }
             window.onload = function() {
               initApp();
@@ -25,14 +27,7 @@
         <!--<script src="js/checarConexion.js"></script>-->
         <!--<script src="/js/Dios.js" ></script>-->
         <header id="barraMenu"></header>
-            <div class="ui animated button" tabindex="0" id="usuario">
-                <div class="visible content">usuario</div>
-                <div class="hidden content" id="usuario">
-                    <i class="send icon"></i>
-                </div>
-            </div>
-            <script src="/js/checarConexion.js" ></script>
+        <button onclick="usuario()">Usuario</button>
     </body>
-    <script src="/js/deleteUser.js"></script>
     <script src="js/traerContenido.js"></script>
 </html>
