@@ -3,15 +3,14 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Main</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.css">
-    <link rel="stylesheet" href="src/css/reset.css">
-    <!-- CSS reset -->
-    <link rel="stylesheet" href="src/css/style.css">
-    <!-- Resource style -->
-    <script src="src/js/modernizr.js"></script>
-    <!-- Modernizr -->
-    <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.css">
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="src/css/reset.css"> <!-- CSS reset -->
+	<link rel="stylesheet" href="src/css/style.css"> <!-- Resource style -->
+	<script src="src/js/modernizr.js"></script> <!-- Modernizr -->
+  	<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
     <script src="/js/conexion.js"></script>
     <script>
         function guardarEmpresa() {
@@ -56,7 +55,7 @@
 </head>
 
 <body>
-    <script src="/js/Dios.js"></script>
+<script src="/js/Dios.js"></script>
     <header class="cd-main-header">
         <a href="#0" class="cd-logo"><img src="src/img/cd-logo.svg" alt="Logo"></a>
 
@@ -87,14 +86,15 @@
                 </li>
             </ul>
         </nav>
-    </header>
-    <!-- .cd-main-header -->
+    </header><!-- .cd-main-header -->
 
+
+    <!-- .cd-main-header -->
     <main class="cd-main-content">
         <nav class="cd-side-nav">
             <ul>
                 <li class="cd-label">Main</li>
-                <li class="has-children active overview">
+                <li class="has-children overview">
                     <a href="MainAleph.html">Empresas</a>
 
                     <!--	<ul>
@@ -103,13 +103,12 @@
 						<li><a href="#0">Category 2</a></li>
 					</ul>-->
                 </li>
-
-                <li class="has-children users">
+                <li class="has-children active users">
 
                     <a href="#0">Usuarios<span class="count">3</span></a>
 
                     <ul>
-                        <li><a href="MainAlephUsersEmpresa.html">Empresas</a></li>
+                        <li><a href="#0">Empresas</a></li>
                         <li><a href="#0">Empleados</a></li>
                     </ul>
                 </li>
@@ -151,118 +150,21 @@
 				<li class="action-btn"><a href="#0">+ Button</a></li>
 			</ul>-->
         </nav>
-        <!--
-        <div class="content-wrapper">
+		</nav>
 
-            <div class="ui special cards">
-                <div class="card">
-                    <div class="blurring dimmable image">
-                        <div class="ui inverted dimmer">
-                            <div class="content">
-                                <div class="center">
-                                    <div class="ui primary button">Ver</div>
-                                </div>
-                            </div>
-                        </div>
-                        <img src="src/img/loActech.png">
-                    </div>
-                    <div class="content">
-                        <a class="header">AC-TECH</a>
-                        <div class="meta">
-                            <span class="date">Ultima Conexion 12:30</span>
-                        </div>
-                    </div>
-                    <div class="extra content">
-                        <a>
-                            <i class="users icon"></i> 2 Miembros
-                        </a>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="blurring dimmable image">
-                        <div class="ui inverted dimmer">
-                            <div class="content">
-                                <div class="center">
-                                    <div class="ui primary button">Ver</div>
-                                </div>
-                            </div>
-                        </div>
-                        <img src="src/img/loActech.png">
-                    </div>
-                    <div class="content">
-                        <a class="header">AC-TECH</a>
-                        <div class="meta">
-                            <span class="date">Ultima Conexion 12:30</span>
-                        </div>
-                    </div>
-                    <div class="extra content">
-                        <a>
-                            <i class="users icon"></i> 2 Miembros
-                        </a>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="blurring dimmable image">
-                        <div class="ui inverted dimmer">
-                            <div class="content">
-                                <div class="center">
-                                    <div class="ui primary button">Ver</div>
-                                </div>
-                            </div>
-                        </div>
-                        <img src="src/img/loActech.png">
-                    </div>
-                    <div class="content">
-                        <a class="header">AC-TECH</a>
-                        <div class="meta">
-                            <span class="date">Ultima Conexion 12:30</span>
-                        </div>
-                    </div>
-                    <div class="extra content">
-                        <a>
-                            <i class="users icon"></i> 2 Miembros
-                        </a>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="blurring dimmable image">
-                        <div class="ui inverted dimmer">
-                            <div class="content">
-                                <div class="center">
-                                    <div class="ui primary button">Ver</div>
-                                </div>
-                            </div>
-                        </div>
-                        <img src="src/img/loActech.png">
-                    </div>
-                    <div class="content">
-                        <a class="header">AC-TECH</a>
-                        <div class="meta">
-                            <span class="date">Ultima Conexion 12:30</span>
-                        </div>
-                    </div>
-                    <div class="extra content">
-                        <a>
-                            <i class="users icon"></i> 2 Miembros
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- .content-wrapper -->
-    </main>
-    <!-- .cd-main-content -->
-    <script src="/js/conexion.js"></script>
-    <script src="src/js/jquery-2.1.4.js"></script>
-    <script src="src/js/jquery.menu-aim.js"></script>
-    <script src="src/js/main.js"></script>
-    <!-- Resource jQuery -->
-    <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
-    <script>
-    $('.special.cards .image').dimmer({
-      on: 'hover'
-    });
-    </script>
+		<div class="content-wrapper">
+
+		</div> <!-- .content-wrapper -->
+	</main> <!-- .cd-main-content -->
+<script src="src/js/jquery-2.1.4.js"></script>
+<script src="src/js/jquery.menu-aim.js"></script>
+<script src="src/js/main.js"></script> <!-- Resource jQuery -->
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
+<script>
+
+$('.ui.modal')
+  .modal('attach events', '#show', 'show')
+;
+</script>
 </body>
-
 </html>

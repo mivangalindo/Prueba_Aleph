@@ -1,18 +1,15 @@
-<!DOCTYPE html>
-<html>
-
+<!doctype html>
+<html lang="en" class="no-js">
 <head>
-    <meta charset="UTF-8">
-    <title>Main2</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.css">
-    <link rel="stylesheet" href="src/css/reset.css">
-    <!-- CSS reset -->
-    <link rel="stylesheet" href="src/css/style.css">
-    <!-- Resource style -->
-    <script src="src/js/modernizr.js"></script>
-    <!-- Modernizr -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.css">
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="src/css/reset.css"> <!-- CSS reset -->
+	<link rel="stylesheet" href="src/css/style.css"> <!-- Resource style -->
+	<script src="src/js/modernizr.js"></script> <!-- Modernizr -->
+  	<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
     <script src="/js/conexion.js"></script>
     <script>
         function guardarEmpresa() {
@@ -35,7 +32,7 @@
         }
 
         function initApp() {
-            table();
+//            table();
             document.getElementById('logout').addEventListener('click', logout, false);
             document.getElementById('Empresa').addEventListener('click', guardarEmpresa, false);
             document.getElementById('usuario').addEventListener('click', usuario, false);
@@ -61,14 +58,14 @@
             location.reload();
         }
 
-        function table() {
+        (function table() {
             firebase.database().ref('empresa/').on('child_added', function (data) {
                 var starCountRef = firebase.database().ref('empresa/' + data.key);
                 starCountRef.on('value', function (snapshot) {
                     drawTable(snapshot.val().nombre, data.key);
                 });
             });
-        }
+        }());
 
         function drawTable(empresa, key) {
             var html =
@@ -80,10 +77,10 @@
             var postElement = table.appendChild(newUser);
         }
     </script>
+	<title>Responsive Sidebar Navigation | CodyHouse</title>
 </head>
-
 <body>
-    <script src="/js/Dios.js"></script>
+<script src="/js/Dios.js"></script>
     <header class="cd-main-header">
         <a href="#0" class="cd-logo"><img src="src/img/cd-logo.svg" alt="Logo"></a>
 
@@ -114,7 +111,8 @@
                 </li>
             </ul>
         </nav>
-    </header>
+    </header><!-- .cd-main-header -->
+
 
     <!-- .cd-main-header -->
     <main class="cd-main-content">
@@ -177,9 +175,10 @@
 				<li class="action-btn"><a href="#0">+ Button</a></li>
 			</ul>-->
         </nav>
+		</nav>
 
-        <div class="content-wrapper">
-            <table class="ui compact celled definition table">
+		<div class="content-wrapper">
+			   <table class="ui compact celled definition table">
                 <thead>
                     <tr>
                         <th>Empresas</th>
@@ -213,17 +212,11 @@
                 </div>
               </div>
             </div>
-
-        </div>
-        <!-- .content-wrapper -->
-    </main>
-</body>
-<!-- .cd-main-content -->
-<script src="/js/conexion.js"></script>
+		</div> <!-- .content-wrapper -->
+	</main> <!-- .cd-main-content -->
 <script src="src/js/jquery-2.1.4.js"></script>
 <script src="src/js/jquery.menu-aim.js"></script>
-<script src="src/js/main.js"></script>
-<!-- Resource jQuery -->
+<script src="src/js/main.js"></script> <!-- Resource jQuery -->
 <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
 <script>
 
@@ -231,4 +224,5 @@ $('.ui.modal')
   .modal('attach events', '#show', 'show')
 ;
 </script>
+</body>
 </html>
