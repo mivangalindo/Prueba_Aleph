@@ -10,9 +10,11 @@
         <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
         <script src="/js/conexion.js" ></script>
         <script src="/js/autentificar.js" ></script>
+        <script src="/js/deleteUser.js" ></script>
         <script>
             var empresa;
             var emailEmpresa;
+            var nombreCEO;
             var inicioDirecto = 1;
             function newEmpresa(){
                 var password = document.getElementById('password').value;
@@ -24,6 +26,7 @@
                                 var ceo = snapshot.val().CEO;
                                 firebase.database().ref('users/' + user.uid).set({
                                     administrador   : ceo,
+                                    nombre          : nombreCEO,
                                     puesto          : 'CEO',
                                     area            : 'CEO',
                                     correo          : emailEmpresa,
@@ -31,6 +34,7 @@
                                 });
                                 firebase.database().ref('empresa/' + user.uid).set({
                                     nombre          : empresa,
+                                    nombreCEO       : nombreCEO,
                                     mision          : 'Misión',
                                     vision          : 'Visión',
                                     valores         : 'Valores',
@@ -46,12 +50,13 @@
                     alert('La contraseña debe contener al menos 6 caracteres.');
                 }
             }
-            function presiona(){
+            function encuentraCoincidencia(){
                 var masDeUno = 0;
                 firebase.database().ref('empresasPendientes/').on('child_added', function(data) {
                    firebase.database().ref('empresasPendientes/'+data.key).once('value').then(function(snapshot) {
                         emailEmpresa = document.getElementById('email').value;
                         var email2 = snapshot.val().correoCEO;
+                        nombreCEO = snapshot.val().nombreCEO;
                         empresa = data.key;
                         if(emailEmpresa == email2){
                             masDeUno = 1;
@@ -69,6 +74,17 @@
                 });
             }
             function inicioUnico(){
+                firebase.database().ref('deletedUsers/' + user.uid).once('value').then(function(snapshot) {
+                    if(user.uid == snapshot.val().user){
+                        alert(user.uid);
+                        firebase.auth().currentUser.delete().then(function() {
+                            alert('Tu cuenta ha sido eliminada.');
+                            firebase.database().ref('deletedUsers/'+user.uid).remove();
+                        }, function(error) {
+                          alert('error para borrar');
+                        });
+                    }
+                });
                 var user = firebase.auth().currentUser;
                 firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
                     var administrador = snapshot.val().administrador;
@@ -106,7 +122,7 @@
                 document.getElementById('handleLogin').addEventListener('click', toggleSignIn, false);
                 document.getElementById('resetPass').addEventListener('click', sendPasswordReset, false);
                 document.getElementById('logout').addEventListener('click', logout, false);
-                document.getElementById('email').addEventListener('keyup', presiona, false);
+                document.getElementById('email').addEventListener('keyup', encuentraCoincidencia, false);
                 //document.getElementById('registroEmpresa').addEventListener('click', newEmpresa, false);
                 $('#registroEmpresa').hide();
             }

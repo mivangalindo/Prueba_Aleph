@@ -14,6 +14,7 @@
     <script>
         function guardarEmpresa() {
             var empresa = document.getElementById('empresa').value;
+            var nombreceo = document.getElementById('nombreCEO').value;
             var correoceo = document.getElementById('correoCEO').value;
             if (empresa.length == 0) {
                 alert('Ingresa una empresa para registrarte.');
@@ -23,16 +24,22 @@
                 alert('Ingresa un correo para el CEO de ' + empresa + '.');
                 return;
             }
+            if (nombreceo.length == 0) {
+                alert('Ingresa un nombre para el CEO de ' + empresa + '.');
+                return;
+            }
             var database = firebase.database();
             firebase.database().ref('empresasPendientes/' + empresa + '/').set({
-                correoCEO: correoceo
+                correoCEO: correoceo,
+                nombreCEO: nombreceo
             });
             document.getElementById('empresa').value = "";
+            document.getElementById('nombreCEO').value = "";
             document.getElementById('correoCEO').value = "";
         }
 
         function initApp() {
-//            table();
+            table();
             document.getElementById('logout').addEventListener('click', logout, false);
             document.getElementById('Empresa').addEventListener('click', guardarEmpresa, false);
             document.getElementById('usuario').addEventListener('click', usuario, false);
@@ -53,19 +60,21 @@
         function edita(id) {
             firebase.database().ref('empresa/' + id).remove();
             firebase.database().ref('users/' + id).remove();
-            //table();
             alert('Eliminado');
             location.reload();
+            firebase.database().ref('deletedUsers/'+id).set({
+                user         : id
+            });
         }
 
-        (function table() {
+        function table() {
             firebase.database().ref('empresa/').on('child_added', function (data) {
                 var starCountRef = firebase.database().ref('empresa/' + data.key);
                 starCountRef.on('value', function (snapshot) {
                     drawTable(snapshot.val().nombre, data.key);
                 });
             });
-        }());
+        }
 
         function drawTable(empresa, key) {
             var html =
@@ -175,7 +184,6 @@
 				<li class="action-btn"><a href="#0">+ Button</a></li>
 			</ul>-->
         </nav>
-		</nav>
 
 		<div class="content-wrapper">
 			   <table class="ui compact celled definition table">
@@ -197,6 +205,9 @@
               <div class="image content">
                 <div class="description">
                     <input type="text" id="empresa" placeholder="Nombre Empresa">
+                    <br>
+                    <input type="text" id="nombreCEO" placeholder="Nombre CEO">
+                    <br>
                     <input type="text" id="correoCEO" placeholder="Correo CEO">
                 </div>
               </div>
