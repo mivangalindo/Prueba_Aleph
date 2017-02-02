@@ -3,41 +3,17 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.css">
+    <title>SIT</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.css">
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
-
 	<link rel="stylesheet" href="src/css/reset.css"> <!-- CSS reset -->
 	<link rel="stylesheet" href="src/css/style.css"> <!-- Resource style -->
 	<script src="src/js/modernizr.js"></script> <!-- Modernizr -->
   	<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
     <script src="/js/conexion.js"></script>
+    <script src="/js/formEmpresas.js"></script>
+    <script src="/js/tablaEmpresa.js"></script>
     <script>
-        function guardarEmpresa() {
-            var empresa = document.getElementById('empresa').value;
-            var nombreceo = document.getElementById('nombreCEO').value;
-            var correoceo = document.getElementById('correoCEO').value;
-            if (empresa.length == 0) {
-                alert('Ingresa una empresa para registrarte.');
-                return;
-            }
-            if (correoceo.length == 0) {
-                alert('Ingresa un correo para el CEO de ' + empresa + '.');
-                return;
-            }
-            if (nombreceo.length == 0) {
-                alert('Ingresa un nombre para el CEO de ' + empresa + '.');
-                return;
-            }
-            var database = firebase.database();
-            firebase.database().ref('empresasPendientes/' + empresa + '/').set({
-                correoCEO: correoceo,
-                nombreCEO: nombreceo
-            });
-            document.getElementById('empresa').value = "";
-            document.getElementById('nombreCEO').value = "";
-            document.getElementById('correoCEO').value = "";
-        }
-
         function initApp() {
             table();
             document.getElementById('logout').addEventListener('click', logout, false);
@@ -56,37 +32,6 @@
             initApp();
         };
     </script>
-    <script>
-        function edita(id) {
-            firebase.database().ref('empresa/' + id).remove();
-            firebase.database().ref('users/' + id).remove();
-            alert('Eliminado');
-            location.reload();
-            firebase.database().ref('deletedUsers/'+id).set({
-                user         : id
-            });
-        }
-
-        function table() {
-            firebase.database().ref('empresa/').on('child_added', function (data) {
-                var starCountRef = firebase.database().ref('empresa/' + data.key);
-                starCountRef.on('value', function (snapshot) {
-                    drawTable(snapshot.val().nombre, data.key);
-                });
-            });
-        }
-
-        function drawTable(empresa, key) {
-            var html =
-                '<td>' + empresa + '</td>' +
-                '<td><button class="ui fluid large red submit button" onclick="edita(this.id)" id="' + key + '">Elimina</button></td>';
-            var table = document.getElementById('table');
-            var newUser = document.createElement('tr')
-            newUser.innerHTML = html;
-            var postElement = table.appendChild(newUser);
-        }
-    </script>
-	<title>Responsive Sidebar Navigation | CodyHouse</title>
 </head>
 <body>
 <script src="/js/Dios.js"></script>

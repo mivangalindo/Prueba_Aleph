@@ -43,5 +43,5 @@ function sendPasswordReset() {
       });
 }
 function SIT(){
-    window.location="https://aleph-b9912.firebaseapp.com/Sit.html";
+    window.location="https://aleph-b9912.firebaseapp.com";
 }
