@@ -5,34 +5,25 @@
         <title>SIT</title>
         <meta name="viewport" content="width=device-width, user-scalable=no">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
         <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
         <script src="/js/conexion.js" ></script>
-        <script src="js/autentificar.js"></script>
+        <script src="/js/autentificar.js" ></script>
+        <script src="/js/deleteUser.js" ></script>
+        <script src="/js/loginSit.js" ></script>
         <script>
             function initApp() {
                   firebase.auth().onAuthStateChanged(function(user) {
-                    if (user) {
-                        //alert('sesion');
-                      // User is signed in.
-                      /*var displayName = user.displayName;
-                      var email = user.email;
-                      var emailVerified = user.emailVerified;
-                      var photoURL = user.photoURL;
-                      var isAnonymous = user.isAnonymous;
-                      var uid = user.uid;
-                      var providerData = user.providerData;*/
-                        //window.location="https://prueba-aleph.firebaseapp.com/main.html";       //WEB
-                       window.location="https://aleph-b9912.firebaseapp.com/main.html";                      //LOCAL
-                    }else{
-
+                    if (user && inicioDirecto == 1) {
+                        inicioUnico();
                     }
                   });
-                  document.getElementById('handleLogin').addEventListener('click', toggleSignIn, false);
-                  document.getElementById('registrar').addEventListener('click', registro, false);
-                  document.getElementById('resetPass').addEventListener('click', sendPasswordReset, false);
-                  document.getElementById('SIT').addEventListener('click', SIT, false);
-
+                document.getElementById('handleLogin').addEventListener('click', toggleSignIn, false);
+                document.getElementById('resetPass').addEventListener('click', sendPasswordReset, false);
+                document.getElementById('email').addEventListener('keyup', encuentraCoincidencia, false);
+                //document.getElementById('registroEmpresa').addEventListener('click', newEmpresa, false);
+                $('#registroEmpresa').hide();
             }
             window.onload = function() {
               initApp();
@@ -62,12 +53,12 @@
         <div class="ui footer inverted teal segment ">
             <div class="ui middle aligned center aligned grid">
                   <div class="column">
-                    <form class="ui large form">
+                    <div class="ui large form">
                       <div class="ui stacked segment">
                         <div class="field">
                          <div class="ui left icon input">
                             <!--<i class="user icon"></i> -->
-                            <input type="text" id="email" placeholder="Correo Electronico">
+                            <input type="text" class="inputTxt" id="email" placeholder="Correo Electronico">
                           </div>
                         </div>
                         <div class="field">
@@ -76,12 +67,11 @@
                             <input type="password" id="password" placeholder="Contraseña">
                           </div>
                         </div>
-                        <div class="ui fluid large teal submit button" id="handleLogin">Ingresar</div>
-                        <div class="ui fluid large teal submit button" id="registrar">Registrarse</div>
-                        <div class="ui fluid large teal submit button" id="resetPass">Resetear contraseña</div>
-                        <div class="ui fluid large teal submit button" id="SIT">SIT</div>
+                            <button class="ui fluid large teal submit button" id="handleLogin">Ingresar</button>
+                            <button class="ui fluid large teal submit button" id="resetPass">Resetear contraseña</button>
+                            <button class="ui fluid large teal submit button" id="registroEmpresa"></button>
                       </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

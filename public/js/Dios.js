@@ -13,7 +13,7 @@ firebase.auth().onAuthStateChanged(function(user) {
                     var jefes       = snapshot.val().Jefes;
                     var subordinados= snapshot.val().Subordinados;
                     if(nivel > dios){
-                        window.location="https://aleph-b9912.firebaseapp.com/Sit.html";
+                        window.location="https://aleph-b9912.firebaseapp.com";
                     }
                 });
             });
