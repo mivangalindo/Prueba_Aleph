@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SIT</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.css">
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="src/css/reset.css"> <!-- CSS reset -->
+	<link rel="stylesheet" href="src/css/style.css"> <!-- Resource style -->
+	<script src="src/js/modernizr.js"></script> <!-- Modernizr -->
+  	<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
+    <script src="/js/conexion.js"></script>
+    <script src="/js/formEmpresas.js"></script>
+    <script src="/js/tablaEmpresa.js"></script>
+    <script>
+        function initApp() {
+            table();
+            document.getElementById('logout').addEventListener('click', logout, false);
+            document.getElementById('Empresa').addEventListener('click', guardarEmpresa, false);
+            document.getElementById('usuario').addEventListener('click', usuario, false);
+        }
+
+        function logout(){
+            firebase.auth().signOut();
+            window.location="https://aleph-b9912.firebaseapp.com/Sit.html";
+        }
+        function usuario() {
+            alert(firebase.auth().currentUser.email);
+        }
+        window.onload = function () {
+            initApp();
+        };
+    </script>
+</head>
+<body>
+<script src="/js/Dios.js"></script>
+    <header class="cd-main-header">
+        <a href="#0" class="cd-logo"><img src="src/img/cd-logo.svg" alt="Logo"></a>
+
+        <div class="cd-search is-hidden">
+            <form action="#0">
+                <input type="search" placeholder="Search...">
+            </form>
+        </div>
+        <!-- cd-search -->
+
+        <a href="#0" class="cd-nav-trigger"><span></span></a>
+
+        <nav class="cd-nav">
+            <ul class="cd-top-nav">
+                <li><a href="#0">Notificacion</a></li>
+                <li><a href="#0">Ayuda</a></li>
+                <li class="has-children account">
+                    <a href="#0">
+                        <img src="src/img/user-image.png" alt="avatar"> Jesus
+                    </a>
+
+                    <ul>
+
+                        <li><a href="#0">Mi cuenta</a></li>
+                        <li><a href="#0">Editar Cuenta</a></li>
+                        <li id="logout"><a>Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header><!-- .cd-main-header -->
+
+
+    <!-- .cd-main-header -->
+    <main class="cd-main-content">
+        <nav class="cd-side-nav">
+            <ul>
+                <li class="cd-label">Main</li>
+                <li class="overview active">
+                    <a>Empresas</a>
+
+                    <!--	<ul>
+						<li><a href="#0">All Data</a></li>
+						<li><a href="#0">Category 1</a></li>
+						<li><a href="#0">Category 2</a></li>
+					</ul>-->
+                </li>
+                <li class="has-children users">
+
+                    <a>Usuarios</a>
+
+                    <ul>
+                        <li><a class="Empresa">Empresas</a></li>
+                        <li><a class="Empleados">Empleados</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!--<ul>
+				<li class="cd-label">Secondary</li>
+				<li class="has-children bookmarks">
+					<a href="#0">Bookmarks</a>
+
+					<ul>
+						<li><a href="#0">All Bookmarks</a></li>
+						<li><a href="#0">Edit Bookmark</a></li>
+						<li><a href="#0">Import Bookmark</a></li>
+					</ul>
+				</li>
+				<li class="has-children images">
+					<a href="#0">Images</a>
+
+					<ul>
+						<li><a href="#0">All Images</a></li>
+						<li><a href="#0">Edit Image</a></li>
+					</ul>
+				</li>
+
+				<li class="has-children users">
+					<a href="#0">Users</a>
+
+					<ul>
+						<li><a href="#0">All Users</a></li>
+						<li><a href="#0">Edit User</a></li>
+						<li><a href="#0">Add User</a></li>
+					</ul>
+				</li>
+			</ul>
+
+			<ul>
+				<li class="cd-label">Action</li>
+				<li class="action-btn"><a href="#0">+ Button</a></li>
+			</ul>-->
+        </nav>
+
+		<div class="content-wrapper">
+
+		</div> <!-- .content-wrapper -->
+	</main> <!-- .cd-main-content -->
+<script src="src/js/jquery-2.1.4.js"></script>
+<script src="src/js/jquery.menu-aim.js"></script>
+<script src="src/js/main.js"></script> <!-- Resource jQuery -->
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
+<script>
+
+$('.ui.modal')
+  .modal('attach events', '#show', 'show')
+;
+
+$( "li.overview a" ).click(function() {
+  $("li.overview").addClass("active");
+  $("li.users").removeClass("active");
+  $(".content-wrapper").load("elementosReutilizables/header.html");
+      //$("#registros").load("elementosReutilizables/registro.html");
+});
+
+
+$("li.users a.Empresa").click(function() {
+  $("li.users").addClass("active");
+ $("li.overview").removeClass("active");
+    $(".content-wrapper").load("elementosReutilizables/empresa.html");
+});
+
+$("li.users a.Empleados").click(function() {
+  $("li.users").addClass("active");
+ $("li.overview").removeClass("active");
+    $(".content-wrapper").load("elementosReutilizables/empleado.html");
+});
+
+if($("li").find(".active .overview")){
+
+     $(".content-wrapper").load("elementosReutilizables/header.html");
+}
+</script>
+</body>
+</html>
