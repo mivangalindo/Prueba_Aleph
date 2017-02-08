@@ -7,14 +7,16 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
         <script src="src/js/modernizr.js"></script> <!-- Modernizr -->
+        <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
         <script src="/js/conexion.js" ></script>
         <script src="/js/formEmpleados.js"></script>
         <script src="/js/checarConexion.js" ></script>
+        <script src="/js/tablaEmpleados.js"></script>
         <script>
             var level = 1;
             function initApp(){
+                table();
                 document.getElementById('Empleado').addEventListener('click', guardarEmpleado, false);
             }
             function usuario(){
@@ -29,6 +31,15 @@
     <body>
         <script src="/js/nivelUsuario.js" ></script>
         <header id="barraMenu"></header>
+        <table class="ui compact celled definition table">
+            <thead>
+                <tr>
+                    <th>Empleados</th>
+                </tr>
+            </thead>
+            <tbody id="table">
+            </tbody>
+        </table>
         <button id="show" class="ui test button">Agrega Empleado</button>
         <div class="ui modal">
           <i class="close icon"></i>
@@ -68,6 +79,7 @@
             </div>
           </div>
         </div>
+        <br><br><br><br>
         <!--<script src="js/checarConexion.js"></script>-->
         <button onclick="usuario()">Usuario</button>
         <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
