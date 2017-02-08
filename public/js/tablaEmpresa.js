@@ -12,14 +12,27 @@ function Activar(id){
     firebase.database().ref('empresa/'+id).update(updates);
     location.reload();
 }
+var empresa;
 function elimina(id) {
-    firebase.database().ref('empresa/' + id).remove();
-    firebase.database().ref('users/' + id).remove();
-    firebase.database().ref('deletedUsers/'+id).set({
-        user         : id
+    firebase.database().ref('users/' + id).once('value').then(function(snapshot) {
+        empresa = snapshot.val().nombreEmpresa;
+        firebase.database().ref('empresasUsers/'+empresa).on('child_added', function (data) {
+            firebase.database().ref('deletedUsers/'+data.key).set({
+                user         : data.key
+            });
+        });
     });
-    location.reload();
-    alert('Eliminado');
+    setTimeout(function(){
+        firebase.database().ref('empresa/' + id).remove();
+        firebase.database().ref('empresasUsers/'+empresa).on('child_added', function (data) {
+            firebase.database().ref('users/' + data.key).remove();
+        });
+        setTimeout(function(){
+            firebase.database().ref('empresasUsers/' + empresa).remove();
+            alert('Eliminado');
+            location.reload();
+        }, 1000);
+    }, 1000);
 }
 
 function table() {

@@ -14,16 +14,15 @@
         <script src="/js/loginSit.js" ></script>
         <script>
             function initApp() {
-                  firebase.auth().onAuthStateChanged(function(user) {
-                    if (user && inicioDirecto == 1) {
+                firebase.auth().onAuthStateChanged(function(user) {
+                    if (user && inicioDirecto == 1)
                         inicioUnico();
-                    }
-                  });
+                });
                 document.getElementById('handleLogin').addEventListener('click', toggleSignIn, false);
                 document.getElementById('resetPass').addEventListener('click', sendPasswordReset, false);
                 document.getElementById('email').addEventListener('keyup', encuentraCoincidencia, false);
-                //document.getElementById('registroEmpresa').addEventListener('click', newEmpresa, false);
                 $('#registroEmpresa').hide();
+                $('#registroEmpleado').hide();
             }
             window.onload = function() {
               initApp();
@@ -70,6 +69,7 @@
                             <button class="ui fluid large teal submit button" id="handleLogin">Ingresar</button>
                             <button class="ui fluid large teal submit button" id="resetPass">Resetear contraseña</button>
                             <button class="ui fluid large teal submit button" id="registroEmpresa"></button>
+                            <button class="ui fluid large teal submit button" id="registroEmpleado"></button>
                       </div>
                     </div>
                 </div>
