@@ -23,9 +23,13 @@ function table() {
 
     });
 }
+function eligeEmpresa(){
+    alert("Aqui eliges empresa");
+}
 function drawTable(empleado, key) {
     var html =
         '<td>' + empleado + '</td>' +
+        '<td><button onclick="eligeEmpresa()">Empresa a cargo</button></td>' +
         '<td><button class="ui fluid large red submit button" onclick="elimina(this.id)" id="' + key + '">Elimina</button></td>';
     var table = document.getElementById('table');
     var newUser = document.createElement('tr');

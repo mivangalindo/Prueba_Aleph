@@ -17,7 +17,7 @@ function newEmpresa(){
             inicioDirecto = 0;
             registro();
             firebase.auth().onAuthStateChanged(function(user) {
-                firebase.database().ref('/Niveles/').once('value').then(function(snapshot) {
+                firebase.database().ref('/niveles/').once('value').then(function(snapshot) {
                     var ceo = snapshot.val().CEO;
                     firebase.database().ref('users/' + user.uid).set({
                         puesto          : ceo,
@@ -67,7 +67,9 @@ function newEmpleado(){
                 if(nombreEmpresaEmpleado == "Aleph"){
                     firebase.database().ref('aleph/' + user.uid).set({
                         nombre          : nombreEmpleado,
-                        uid             : user.uid
+                        correo          : correoEmpleado,
+                        puesto          : "1",
+                        empresaACargoUid: "null"
                     });
                 }else{
                     firebase.database().ref('empresasUsers/' + nombreEmpresaEmpleado + '/' + user.uid).set({
@@ -146,7 +148,7 @@ function inicioUnico(){
     });
     firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
         var puesto = snapshot.val().puesto;
-        firebase.database().ref('/Niveles/').once('value').then(function(snapshot) {
+        firebase.database().ref('/niveles/').once('value').then(function(snapshot) {
             var dios        = snapshot.val().Dios;
             var ceo         = snapshot.val().CEO;
             var directores  = snapshot.val().Directores;
@@ -154,7 +156,7 @@ function inicioUnico(){
             var subordinados= snapshot.val().Subordinados;
             switch(puesto){
                 case dios:
-                    window.location="https://aleph-b9912.firebaseapp.com/MainAleph.html";
+                    window.location="https://aleph-b9912.firebaseapp.com/MainAlephEmpresas.html";
                     break;
                 case ceo:
                     window.location="https://aleph-b9912.firebaseapp.com/MainCeo.html";

@@ -6,7 +6,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         }else{
             firebase.database().ref('/users/' + user.uid).once('value').then(function(snapshot) {
                 var nivel = snapshot.val().puesto;
-                firebase.database().ref('/Niveles/').once('value').then(function(snapshot) {
+                firebase.database().ref('/niveles/').once('value').then(function(snapshot) {
                     var dios        = snapshot.val().Dios;
                     var ceo         = snapshot.val().CEO;
                     var directores  = snapshot.val().Directores;
