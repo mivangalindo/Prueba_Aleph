@@ -26,7 +26,7 @@ function guardarEmpleado() {
         firebase.database().ref('empleadosPendientes/').push().set({
             correoEmpleado: correoEmpleado,
             puesto        : puesto,
-            area        : area,
+            area          : area,
             empresaUID    : user.uid,
             nombreEmpresa : snapshot.val().nombreEmpresa,
             nombreEmpleado: empleado

@@ -1,10 +1,9 @@
-var empresa;
 function elimina(id) {
     firebase.database().ref('deletedUsers/'+id).set({
                 user         : id
     });
     firebase.database().ref('users/' + id).remove();
-    firebase.database().ref('empresasUsers/'+empresa+"/"+id).remove();
+    firebase.database().ref('aleph/'+id).remove();
     alert('Eliminado');
     location.reload();
 }
@@ -12,16 +11,16 @@ function table() {
     var baja, color;
     firebase.auth().onAuthStateChanged(function(user) {
         var user = firebase.auth().currentUser;
-        firebase.database().ref('users/' + user.uid).once('value').then(function(snapshot) {
-            firebase.database().ref('empresasUsers/'+snapshot.val().nombreEmpresa).on('child_added', function (data) {
-                var starCountRef = firebase.database().ref('empresasUsers/'+snapshot.val().nombreEmpresa+"/"+data.key);
+
+            firebase.database().ref('aleph/').on('child_added', function (data) {
+                var starCountRef = firebase.database().ref('aleph/' + data.key);
                 starCountRef.on('value', function (info) {
-                    empresa = snapshot.val().nombreEmpresa;
-                    if(data.key != user.uid)
+                    if(data.key != "ceo"){
                         drawTable(info.val().nombre, data.key);
+                    }
                 });
             });
-        });
+
     });
 }
 function drawTable(empleado, key) {

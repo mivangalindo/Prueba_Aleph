@@ -1,4 +1,4 @@
-<!doctype html>
+<!Doctype html>
 <html lang="en" class="no-js">
     <head>
         <meta charset="UTF-8">
@@ -11,14 +11,15 @@
         <script src="src/js/modernizr.js"></script> <!-- Modernizr -->
         <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
         <script src="/js/conexion.js"></script>
-        <script src="/js/formEmpresas.js"></script>
-        <script src="/js/tablaEmpresa.js"></script>
+        <script src="/js/formEmpleadosAleph.js"></script>
+        <script src="/js/tablaEmpleadosAleph.js"></script>
         <script>
             var level = 0;
             function initApp() {
                 table();
+                //selectEmpresa();
                 document.getElementById('logout').addEventListener('click', logout, false);
-                document.getElementById('Empresa').addEventListener('click', guardarEmpresa, false);
+                document.getElementById('Empleado').addEventListener('click', guardarEmpleado, false);
                 document.getElementById('usuario').addEventListener('click', usuario, false);
             }
 
@@ -61,8 +62,7 @@
                     </li>
                 </ul>
             </nav>
-        </header><!-- .cd-main-header -->
-            <!-- .cd-main-header -->
+        </header>
         <main class="cd-main-content">
             <nav class="cd-side-nav">
                 <ul>
@@ -73,8 +73,8 @@
                     <li class="has-children active users">
                         <a href="">Usuarios</a>
                         <ul>
-                            <li><a href="MainAlephUsersEmpresa.html">Empresas</a></li>
-                            <li><a href="#0">Empleados</a></li>
+                            <li><a href="MainAlephEmpresas.html">Empresas</a></li>
+                            <li><a href="MainAlephEmpleados">Empleados</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -83,41 +83,40 @@
                  <table class="ui compact celled definition table">
                     <thead>
                         <tr>
-                            <th>Empresas</th>
+                            <th>Empleados</th>
                         </tr>
                     </thead>
                     <tbody id="table">
                     </tbody>
                 </table>
-                <button id="show" class="ui test button">Agrega Empresa</button>
+                <button id="show" class="ui test button">Agrega Empleados</button>
                 <div class="ui modal">
-                    <i class="close icon"></i>
-                    <div class="header">
-                        Empresa
+                  <i class="close icon"></i>
+                  <div class="header">
+                    Empleado
+                  </div>
+                  <div class="image content">
+                    <div class="description">
+                        <input type="text" id="empleado" placeholder="Nombre empleado">
+                        <br>
+                        <input type="text" id="correoEmpleado" placeholder="Correo empleado">
+                        <br>
                     </div>
-                    <div class="image content">
-                        <div class="description">
-                            <input type="text" id="empresa" placeholder="Nombre Empresa">
-                            <br>
-                            <input type="text" id="nombreCEO" placeholder="Nombre CEO">
-                            <br>
-                            <input type="text" id="correoCEO" placeholder="Correo CEO">
+                  </div>
+                  <div class="actions">
+                    <div class="ui black deny button">
+                      Nope
+                    </div>
+                    <div class="ui positive right animated button" tabindex="0" id="Empleado">
+                        <div class="visible content">Guardar</div>
+                        <div class="hidden content" id="Empleado">
+                            <i class="send icon"></i>
                         </div>
                     </div>
-                    <div class="actions">
-                        <div class="ui black deny button">
-                            Nope
-                        </div>
-                        <div class="ui positive right animated button" tabindex="0" id="Empleado">
-                            <div class="visible content">Guardar</div>
-                            <div class="hidden content" id="Empresa">
-                                <i class="send icon"></i>
-                            </div>
-                        </div>
-                    </div>
+                  </div>
                 </div>
-            </div> <!-- .content-wrapper -->
-        </main> <!-- .cd-main-content -->
+            </div>
+        </main>
         <script src="src/js/jquery-2.1.4.js"></script>
         <script src="src/js/jquery.menu-aim.js"></script>
         <script src="src/js/main.js"></script> <!-- Resource jQuery -->

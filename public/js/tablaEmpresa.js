@@ -58,7 +58,7 @@ function drawTable(empresa, key, baja, color) {
         '<td><button class="ui fluid large '+ color +' submit button" onclick="'+baja+'(this.id)" id="' + key + '">'+ baja+'</button></td>'+
         '<td><button class="ui fluid large red submit button" onclick="elimina(this.id)" id="' + key + '">Elimina</button></td>';
     var table = document.getElementById('table');
-    var newUser = document.createElement('tr')
+    var newUser = document.createElement('tr');
     newUser.innerHTML = html;
     var postElement = table.appendChild(newUser);
 }
