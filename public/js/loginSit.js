@@ -64,10 +64,17 @@ function newEmpleado(){
                         nombreEmpresa   : nombreEmpresaEmpleado,
                         puesto          : puestoEmpleado
                     });
+                if(nombreEmpresaEmpleado == "Aleph"){
+                    firebase.database().ref('aleph/' + user.uid).set({
+                        nombre          : nombreEmpleado,
+                        uid             : user.uid
+                    });
+                }else{
                     firebase.database().ref('empresasUsers/' + nombreEmpresaEmpleado + '/' + user.uid).set({
                         nombre          : nombreEmpleado,
                         uid             : user.uid
                     });
+                }
             });
             firebase.database().ref('empleadosPendientes/'+empleadoKey).remove();
             setTimeout(function(){
