@@ -1,3 +1,15 @@
+    /*var app = angular.module('selectEmpleadosAleph', []);
+    app.controller('myCtrl', function($scope) {
+        firebase.database().ref('empresa/').on('child_added', function (data) {
+          firebase.database().ref('empresa/' + data.key).once('value').then(function(snapshot) {
+
+          });
+        });
+        $scope.cars = [
+            {model : "Fiat 500", color : "white"},
+            {model : "Volvo XC90", color : "black"}
+        ];
+    });*/
 function guardarEmpleado() {
     var empleado = document.getElementById('empleado').value;
     var correoEmpleado = document.getElementById('correoEmpleado').value;
