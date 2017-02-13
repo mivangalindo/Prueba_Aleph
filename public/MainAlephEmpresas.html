@@ -5,6 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>SIT</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/dataTables.semanticui.min.css">
+
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="src/css/reset.css"> <!-- CSS reset -->
         <link rel="stylesheet" href="src/css/style.css"> <!-- Resource style -->
@@ -80,15 +82,29 @@
                 </ul>
             </nav>
             <div class="content-wrapper">
-                 <table class="ui compact celled definition table">
-                    <thead>
-                        <tr>
-                            <th>Empresas</th>
-                        </tr>
-                    </thead>
-                    <tbody id="table">
-                    </tbody>
-                </table>
+
+
+
+<table id="example" class="ui celled table" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Empresa</th>
+                <th> Status</th>
+                <th> </th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Empresa</th>
+                <th> Status</th>
+                <th> </th>
+
+            </tr>
+        </tfoot>
+        <tbody id="table">
+
+        </tbody>
+    </table>
                 <button id="show" class="ui test button">Agrega Empresa</button>
                 <div class="ui modal">
                     <i class="close icon"></i>
@@ -116,17 +132,34 @@
                         </div>
                     </div>
                 </div>
+
+
+
             </div> <!-- .content-wrapper -->
         </main> <!-- .cd-main-content -->
         <script src="src/js/jquery-2.1.4.js"></script>
         <script src="src/js/jquery.menu-aim.js"></script>
         <script src="src/js/main.js"></script> <!-- Resource jQuery -->
+        <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.13/js/dataTables.semanticui.min.js"></script>
         <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
         <script>
 
         $('.ui.modal')
           .modal('attach events', '#show', 'show')
         ;
+
+        setTimeout(function() {
+            $(document).ready(function() {
+            $('#example').DataTable({
+                "language": {
+                            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                }
+            });
+        } );
+        }, 5000);
+
+
         </script>
     </body>
 </html>

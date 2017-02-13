@@ -13,6 +13,7 @@
 function guardarEmpleado() {
     var empleado = document.getElementById('empleado').value;
     var correoEmpleado = document.getElementById('correoEmpleado').value;
+    var empresa = document.getElementById('selectEmpresa'.valuel);
     var user = firebase.auth().currentUser;
     if (empleado.length == 0) {
         alert('Ingresa una empresa para registrarte.');
@@ -34,6 +35,30 @@ function guardarEmpleado() {
     document.getElementById('empleado').value = "";
     document.getElementById('correoEmpleado').value = "";
 }
+
+
+
+
+(function () {
+
+    firebase.database().ref('empresa/').on('child_added', function (data) {
+        var starCountRef = firebase.database().ref('empresa/' + data.key);
+        starCountRef.on('value', function (snapshot) {
+
+            var html = snapshot.val().nombre;
+    var dropDownId = document.getElementById('add-empresa');
+    var div = document.createElement('div');
+    div.className = "item"
+    div.innerHTML = html;
+    var postElement = dropDownId.appendChild(div);
+
+        });
+    });
+
+})();
+
+
+
 /*function selectEmpresa() {
     firebase.database().ref('empresa/').on('child_added', function (data) {
         var starCountRef = firebase.database().ref('empresa/' + data.key);
