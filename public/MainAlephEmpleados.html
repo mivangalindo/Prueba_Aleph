@@ -179,7 +179,15 @@
         $('.ui.modal')
             .modal('attach events', '#show', 'show');
 
-
+          setTimeout(function() {
+            $(document).ready(function() {
+            $('#example').DataTable({
+                "language": {
+                            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                }
+            });
+        } );
+        }, 5000);
     </script>
 </body>
 
