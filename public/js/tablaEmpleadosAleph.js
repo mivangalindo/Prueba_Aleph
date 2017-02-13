@@ -8,7 +8,7 @@ function elimina(id) {
     location.reload();
 }
 
-(function () {
+function table() {
     var baja, color;
     firebase.auth().onAuthStateChanged(function(user) {
         var user = firebase.auth().currentUser;
@@ -23,7 +23,7 @@ function elimina(id) {
             });
 
     });
-}();
+}
 
 function drawTable(empleado,empresa, key) {
     var html =

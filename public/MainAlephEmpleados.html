@@ -16,18 +16,17 @@
     <!-- Modernizr -->
     <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
     <script src="/js/conexion.js"></script>
+    <script src="/js/formEmpleadosAleph.js"></script>
+    <script src="/js/tablaEmpleadosAleph.js"></script>
     <script>
         var level = 0;
-
-
-
 
         function initApp() {
 
             table();
             document.getElementById('logout').addEventListener('click', logout, false);
             document.getElementById('Empleado').addEventListener('click', guardarEmpleado, false);
-            document.getElementById('usuario').addEventListener('click', usuario, false);
+
         }
 
         function logout() {
@@ -142,7 +141,7 @@
                             <div class="field">
                                 <label>Empresa</label>
                                 <div class="ui selection dropdown">
-                                    <input type="hidden" name="gender">
+                                    <input id="nombreEmpresa" type="hidden" name="gender">
                                     <i class="dropdown icon"></i>
                                     <div class="default text">Empresa</div>
                                     <div class="menu" id="add-empresa">
@@ -153,10 +152,10 @@
                         </div>
                     </form>
                 </div>
-                 <div class="actions">
+                <div class="actions">
                     <div class="ui approve button" id="Empleado">Enviar</div>
                     <div class="ui cancel button">Cancelar</div>
-  </div>
+                </div>
             </div>
 
 
@@ -172,28 +171,13 @@
     <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.13/js/dataTables.semanticui.min.js"></script>
     <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
-    <script src="/js/formEmpleadosAleph.js"></script>
-    <script src="/js/tablaEmpleadosAleph.js"></script>
+
     <script>
         $('.dropdown')
-  .dropdown()
-;
-
-
-
+            .dropdown();
 
         $('.ui.modal')
             .modal('attach events', '#show', 'show');
-
-        setTimeout(function () {
-            $(document).ready(function () {
-                $('#example').DataTable({
-                    "language": {
-                        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
-                    }
-                });
-            });
-        }, 5000);
 
 
     </script>
