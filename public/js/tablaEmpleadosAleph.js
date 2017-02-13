@@ -7,7 +7,8 @@ function elimina(id) {
     alert('Eliminado');
     location.reload();
 }
-function table() {
+
+(function () {
     var baja, color;
     firebase.auth().onAuthStateChanged(function(user) {
         var user = firebase.auth().currentUser;
@@ -16,20 +17,18 @@ function table() {
                 var starCountRef = firebase.database().ref('aleph/' + data.key);
                 starCountRef.on('value', function (info) {
                     if(data.key != "ceo"){
-                        drawTable(info.val().nombre, data.key);
+                        drawTable(info.val().nombre, info.val().nombreEmpresa,data.key);
                     }
                 });
             });
 
     });
-}
-function eligeEmpresa(){
-    alert("Aqui eliges empresa");
-}
-function drawTable(empleado, key) {
+}();
+
+function drawTable(empleado,empresa, key) {
     var html =
         '<td>' + empleado + '</td>' +
-        '<td><button onclick="eligeEmpresa()">Empresa a cargo</button></td>' +
+        '<td>' + empresa + '</td>' +
         '<td><button class="ui fluid large red submit button" onclick="elimina(this.id)" id="' + key + '">Elimina</button></td>';
     var table = document.getElementById('table');
     var newUser = document.createElement('tr');

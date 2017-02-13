@@ -16,7 +16,6 @@
     <!-- Modernizr -->
     <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
     <script src="/js/conexion.js"></script>
-    <script src="/js/tablaEmpleadosAleph.js"></script>
     <script>
         var level = 0;
 
@@ -27,7 +26,7 @@
 
             table();
             document.getElementById('logout').addEventListener('click', logout, false);
-            document.getElementById('Empresa').addEventListener('click', guardarEmpresa, false);
+            document.getElementById('Empleado').addEventListener('click', guardarEmpleado, false);
             document.getElementById('usuario').addEventListener('click', usuario, false);
         }
 
@@ -99,14 +98,14 @@
                 <thead>
                     <tr>
                         <th>Empleado</th>
-                        <th> Status</th>
+                        <th> Empresa</th>
                         <th> </th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
                         <th>Empleado</th>
-                        <th> Status</th>
+                        <th> Empres</th>
                         <th> </th>
 
                     </tr>
@@ -124,7 +123,7 @@
                             <label>Nombre</label>
                             <div class="two fields">
                                 <div class="field">
-                                    <input type="text" name="shipping[first-name]" placeholder="Nombre">
+                                    <input id="empleado" type="text" name="shipping[first-name]" placeholder="Nombre">
                                 </div>
                                 <div class="field">
                                     <input type="text" name="shipping[last-name]" placeholder="Apellido">
@@ -135,7 +134,7 @@
                             <label>Correo</label>
                             <div class="fields">
                                 <div class="ten wide field">
-                                    <input type="text" name="shipping[address]" placeholder="example@mail.com">
+                                    <input id="correoEmpleado" type="text" name="shipping[address]" placeholder="example@mail.com">
                                 </div>
 
                             </div>
@@ -147,13 +146,17 @@
                                     <i class="dropdown icon"></i>
                                     <div class="default text">Empresa</div>
                                     <div class="menu" id="add-empresa">
-                                         <div class="item" data-value="1">Hola1</div>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
+                 <div class="actions">
+                    <div class="ui approve button" id="Empleado">Enviar</div>
+                    <div class="ui cancel button">Cancelar</div>
+  </div>
             </div>
 
 
@@ -170,6 +173,7 @@
     <script src="https://cdn.datatables.net/1.10.13/js/dataTables.semanticui.min.js"></script>
     <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
     <script src="/js/formEmpleadosAleph.js"></script>
+    <script src="/js/tablaEmpleadosAleph.js"></script>
     <script>
         $('.dropdown')
   .dropdown()

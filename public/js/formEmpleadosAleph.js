@@ -13,7 +13,7 @@
 function guardarEmpleado() {
     var empleado = document.getElementById('empleado').value;
     var correoEmpleado = document.getElementById('correoEmpleado').value;
-    var empresa = document.getElementById('selectEmpresa'.valuel);
+    var empresa = document.getElementById('add-empresa').value;
     var user = firebase.auth().currentUser;
     if (empleado.length == 0) {
         alert('Ingresa una empresa para registrarte.');
@@ -29,7 +29,7 @@ function guardarEmpleado() {
         puesto        : "1",//puesto,
         area          : "CEO",//area,
         empresaUID    : "uidCambiable",//user.uid,
-        nombreEmpresa : "Aleph",//snapshot.val().nombreEmpresa,
+        nombreEmpresa : empresa,//snapshot.val().nombreEmpresa,
         nombreEmpleado: empleado
     });
     document.getElementById('empleado').value = "";
