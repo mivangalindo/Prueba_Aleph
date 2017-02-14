@@ -37,3 +37,20 @@ function guardarEmpleado() {
     document.getElementById('puesto').value = "";
     document.getElementById('area').value = "";
 }
+(function () {
+
+    firebase.database().ref('empresa/').on('child_added', function (data) {
+        var starCountRef = firebase.database().ref('empresa/' + data.key);
+        starCountRef.on('value', function (snapshot) {
+            if(snapshot.val().activo){
+                var html = snapshot.val().nombre;
+                var dropDownId = document.getElementById('add-empresa');
+                var div = document.createElement('div');
+                div.className = "item"
+                div.innerHTML = html;
+                var postElement = dropDownId.appendChild(div);
+            }
+        });
+    });
+
+})();
