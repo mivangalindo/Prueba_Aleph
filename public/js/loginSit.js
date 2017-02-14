@@ -69,7 +69,7 @@ function newEmpleado(){
                         nombre          : nombreEmpleado,
                         correo          : correoEmpleado,
                         puesto          : "1",
-                        empresaACargoUid: "null"
+                        empresaACargoUid: empresaUIDEmpleado
                     });
                 }else{
                     firebase.database().ref('empresasUsers/' + nombreEmpresaEmpleado + '/' + user.uid).set({

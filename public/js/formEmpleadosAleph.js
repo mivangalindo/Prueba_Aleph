@@ -14,13 +14,22 @@ function guardarEmpleado() {
         return;
     }
     var database = firebase.database();
-    firebase.database().ref('empleadosPendientes/').push().set({
-        correoEmpleado: correoEmpleado,
-        puesto        : "1",//puesto,
-        area          : "CEO",//area,
-        empresaUID    : "uidCambiable",//user.uid,
-        nombreEmpresa : empresa,//snapshot.val().nombreEmpresa,
-        nombreEmpleado: empleado
+
+    firebase.database().ref('empresa/').on('child_added', function (data) {
+        var starCountRef = firebase.database().ref('empresa/' + data.key);
+        starCountRef.on('value', function (snapshot) {
+            if(snapshot.val().nombre == empresa){
+                firebase.database().ref('empleadosPendientes/').push().set({
+                    correoEmpleado: correoEmpleado,
+                    puesto        : "1",//puesto,
+                    area          : "CEO",//area,∫
+                    empresaUID    : data.key,//user.uid,
+                    nombreEmpresa : "Aleph",//snapshot.val().nombreEmpresa,
+                    nombreEmpresaCargo : empresa,//snapshot.val().nombreEmpresa,
+                    nombreEmpleado: empleado
+                });
+            }
+        });
     });
     document.getElementById('empleado').value = "";
     document.getElementById('correoEmpleado').value = "";
