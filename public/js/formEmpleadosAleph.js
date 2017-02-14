@@ -2,7 +2,8 @@
 function guardarEmpleado() {
     var empleado = document.getElementById('empleado').value;
     var correoEmpleado = document.getElementById('correoEmpleado').value;
-    var empresa = document.getElementById('nombreEmpresa').value;
+    var empresa2 = document.getElementById('nombreEmpresa').value;
+    var empresa = capitalizeFirstLetter(empresa2);
     var user = firebase.auth().currentUser;
     if (empleado.length == 0) {
         alert('Ingresa una empresa para registrarte.');
@@ -24,23 +25,22 @@ function guardarEmpleado() {
     document.getElementById('empleado').value = "";
     document.getElementById('correoEmpleado').value = "";
     document.getElementById('nombreEmpresa').value = "";
-    alert(empresa);
 }
-
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 (function () {
 
     firebase.database().ref('empresa/').on('child_added', function (data) {
         var starCountRef = firebase.database().ref('empresa/' + data.key);
         starCountRef.on('value', function (snapshot) {
-
             var html = snapshot.val().nombre;
-    var dropDownId = document.getElementById('add-empresa');
-    var div = document.createElement('div');
-    div.className = "item"
-    div.innerHTML = html;
-    var postElement = dropDownId.appendChild(div);
-
+            var dropDownId = document.getElementById('add-empresa');
+            var div = document.createElement('div');
+            div.className = "item"
+            div.innerHTML = html;
+            var postElement = dropDownId.appendChild(div);
         });
     });
 
