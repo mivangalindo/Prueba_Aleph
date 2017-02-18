@@ -35,10 +35,13 @@ function newEmpresa(){
                         nombre          : empresa,
                         nombreCEO       : nombreCEO,
                         mision          : 'Misión',
-                        activo          :  true,
+                        //activo          :  true,
                         vision          : 'Visión',
                         valores         : 'Valores',
                         responsable     : 'Responsable'
+                    });
+                    firebase.database().ref('empresaOn/' + user.uid).set({
+                        activo          :  true
                     });
                 });
             });

@@ -18,6 +18,7 @@
             function initApp(){
                 table();
                 document.getElementById('Empleado').addEventListener('click', guardarEmpleado, false);
+                //document.getElementById('Area').addEventListener('click', guardarArea, false);
             }
             function usuario(){
                 alert(firebase.auth().currentUser.uid);
@@ -67,11 +68,11 @@
                 </select>
                 <br>
                 <div class="field">
-                    <label>Empresa</label>
+                    <label>Áreas</label>
                     <div class="ui selection dropdown">
                         <input id="nombreEmpresa" type="hidden" name="gender">
                         <i class="dropdown icon"></i>
-                        <div class="default text">Empresa</div>
+                        <div class="default text">Áreas</div>
                         <div class="menu" id="add-empresa">
                         </div>
                     </div>
@@ -90,7 +91,14 @@
             </div>
           </div>
         </div>
-        <br><br><br><br>
+        <br><br>
+        <!--AREA-------------------->
+        <br>
+            Con HTML5 no permitir acentos ni simbolos, pura letra.<br>
+            <input type="text" id="Area" placeholder="Área">
+            <button onClick="guardarArea()">Guardar Área</button>
+        <br>
+        <br><br>
         <!--<script src="js/checarConexion.js"></script>-->
         <button onclick="usuario()">Usuario</button>
         <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>

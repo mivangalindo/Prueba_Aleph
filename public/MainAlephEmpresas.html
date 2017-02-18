@@ -21,16 +21,16 @@
                 table();
                 document.getElementById('logout').addEventListener('click', logout, false);
                 document.getElementById('Empresa').addEventListener('click', guardarEmpresa, false);
-                document.getElementById('usuario').addEventListener('click', usuario, false);
+                //document.getElementById('usuario').addEventListener('click', usuario, false);
             }
 
             function logout(){
                 firebase.auth().signOut();
                 window.location="https://aleph-b9912.firebaseapp.com/Sit.html";
             }
-            function usuario() {
+            /*function usuario() {
                 alert(firebase.auth().currentUser.email);
-            }
+            }*/
             window.onload = function () {
                 initApp();
             };

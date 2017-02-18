@@ -2,14 +2,14 @@ function Desactivar(id){
     var updates = {
         activo: false
       };
-    firebase.database().ref('empresa/'+id).update(updates);
+    firebase.database().ref('empresaOn/'+id).update(updates);
     location.reload();
 }
 function Activar(id){
     var updates = {
         activo: true
       };
-    firebase.database().ref('empresa/'+id).update(updates);
+    firebase.database().ref('empresaOn/'+id).update(updates);
     location.reload();
 }
 var empresa;
@@ -40,14 +40,16 @@ function table() {
     firebase.database().ref('empresa/').on('child_added', function (data) {
         var starCountRef = firebase.database().ref('empresa/' + data.key);
         starCountRef.on('value', function (snapshot) {
-            if(snapshot.val().activo){
-                baja = 'Desactivar';
-                color = 'green';
-            }else{
-                baja = 'Activar';
-                color = 'yellow';
-            }
-            drawTable(snapshot.val().nombre, data.key, baja, color);
+            firebase.database().ref('empresaOn/'+data.key).once('value').then(function(snapshoot) {
+                if(snapshoot.val().activo){
+                    baja = 'Desactivar';
+                    color = 'green';
+                }else{
+                    baja = 'Activar';
+                    color = 'yellow';
+                }
+                drawTable(snapshot.val().nombre, data.key, baja, color);
+            });
         });
     });
 }

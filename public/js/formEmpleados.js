@@ -37,19 +37,51 @@ function guardarEmpleado() {
     document.getElementById('puesto').value = "";
     document.getElementById('area').value = "";
 }
+function guardarArea() {
+    var coincidencia = false;
+    var area = document.getElementById('Area').value;
+    if (area.length == 0) {
+        alert('Ingresa un área.');
+        return;
+    }
+    //str.replace(/\s/g, '')
+    //alert(str);
+    area = area.toUpperCase();
+    //area.replace(/^\s+|\s+$/gm,'');
+    var user = firebase.auth().currentUser;
+    firebase.database().ref('empresa/'+ user.uid+'/areas').on('child_added', function (data) {
+        firebase.database().ref('empresa/'+ user.uid+'/areas/'+data.key).once('value').then(function(snapshot) {
+            if(area == snapshot.val().area)
+                coincidencia = true;
+        });
+    });
+    setTimeout(function(){
+        if(!coincidencia){
+            firebase.database().ref('empresa/' + user.uid+'/areas').push().set({
+                    area: area
+            });
+            alert("¡Área registrada!");
+        }
+        else
+            alert("Área ya registrada, intenta otra vez.")
+        document.getElementById('Area').value = "";
+    }, 1000);
+}
 (function () {
 
     firebase.database().ref('empresa/').on('child_added', function (data) {
         var starCountRef = firebase.database().ref('empresa/' + data.key);
         starCountRef.on('value', function (snapshot) {
-            if(snapshot.val().activo){
-                var html = snapshot.val().nombre;
-                var dropDownId = document.getElementById('add-empresa');
-                var div = document.createElement('div');
-                div.className = "item"
-                div.innerHTML = html;
-                var postElement = dropDownId.appendChild(div);
-            }
+            firebase.database().ref('empresaOn/'+data.key).once('value').then(function(snapshoot) {
+                if(snapshoot.val().activo){
+                    var html = snapshot.val().nombre;
+                    var dropDownId = document.getElementById('add-empresa');
+                    var div = document.createElement('div');
+                    div.className = "item"
+                    div.innerHTML = html;
+                    var postElement = dropDownId.appendChild(div);
+                }
+            });
         });
     });
 
