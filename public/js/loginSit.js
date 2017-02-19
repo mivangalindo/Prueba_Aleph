@@ -27,22 +27,22 @@ function newEmpresa(){
                         empresaUID      : user.uid,
                         nombreEmpresa   : empresa
                     });
-                    firebase.database().ref('empresasUsers/' + empresa + '/' + user.uid).set({
-                        nombre          : nombreCEO,
-                        uid             : user.uid
-                    });
-                    firebase.database().ref('empresa/' + user.uid).set({
-                        nombre          : empresa,
-                        nombreCEO       : nombreCEO,
-                        mision          : 'Misión',
-                        //activo          :  true,
-                        vision          : 'Visión',
-                        valores         : 'Valores',
-                        responsable     : 'Responsable'
-                    });
-                    firebase.database().ref('empresaOn/' + user.uid).set({
-                        activo          :  true
-                    });
+                    setTimeout(function(){
+                        firebase.database().ref('empresasUsers/' + empresa + '/' + user.uid).set({
+                            nombre          : nombreCEO,
+                            uid             : user.uid
+                        });
+                        firebase.database().ref('empresa/' + user.uid).set({
+                            first           : true,
+                            nombre          : empresa,
+                            nombreCEO       : nombreCEO,
+                            mision          : 'Misión',
+                            //activo          :  true,
+                            vision          : 'Visión',
+                            valores         : 'Valores',
+                            responsable     : 'Responsable'
+                        });
+                    }, 2000);
                 });
             });
             firebase.database().ref('empresasPendientes/'+empresa).remove();
@@ -159,7 +159,7 @@ function inicioUnico(){
             var subordinados= snapshot.val().Subordinados;
             switch(puesto){
                 case dios:
-                    window.location="https://aleph-b9912.firebaseapp.com/MainAlephEmpresas.html";
+                    window.location="https://aleph-b9912.firebaseapp.com/MainAleph.html";
                     break;
                 case ceo:
                     window.location="https://aleph-b9912.firebaseapp.com/MainCeo.html";

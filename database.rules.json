@@ -1,6 +1,39 @@
 {
   "rules": {
-    ".read": true,
-    ".write": true
+    "niveles":{
+      ".write": "auth != null",
+      ".read" : "auth != null"
+    },
+    "users":{
+      ".write": "auth != null",
+      ".read" : "auth != null"
+    },
+    //Solo Jesus puede activar o desactivar
+    "empresaOn":{
+      ".write": "root.child('aleph/ceo/uid').val() === auth.uid",
+      ".read" : "auth != null"
+    },
+    "empresasUsers":{
+      ".write": "root.child('users/'+ auth.uid +'/puesto').val() === '1'",// || data.child('aleph/ceo/uid').val() === auth.uid",
+      ".read" : "auth != null"
+    },
+    "empresa":{
+      ".write": "root.child('users/'+ auth.uid +'/puesto').val() === '1'",// || data.child('aleph/ceo/uid').val() === auth.uid",
+      ".read" : "auth != null"
+    },
+  	"empresasPendientes":{
+      ".write": "root.child('aleph/ceo/uid').val() === auth.uid",
+      ".read": true,
+      "$empresa":{
+      	".write": true
+      }
+    },
+    "empleadosPendientes":{
+      ".write": "root.child('empresa/'+auth.uid).exists() || data.child('aleph/ceo/uid').val() === auth.uid",
+      ".read": true,
+      "$uid":{
+      	".write": true
+      }
+    }
   }
 }

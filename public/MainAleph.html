@@ -1,170 +1,155 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en" class="no-js">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>SIT</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/dataTables.semanticui.min.css">
 
-<head>
-    <meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.css">
-	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="src/css/reset.css"> <!-- CSS reset -->
-	<link rel="stylesheet" href="src/css/style.css"> <!-- Resource style -->
-	<script src="src/js/modernizr.js"></script> <!-- Modernizr -->
-  	<script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
-    <script src="/js/conexion.js"></script>
-    <script>
-        function guardarEmpresa() {
-            var empresa = document.getElementById('empresa').value;
-            var correoceo = document.getElementById('correoCEO').value;
-            if (empresa.length == 0) {
-                alert('Ingresa una empresa para registrarte.');
-                return;
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="src/css/reset.css"> <!-- CSS reset -->
+        <link rel="stylesheet" href="src/css/style.css"> <!-- Resource style -->
+        <script src="src/js/modernizr.js"></script> <!-- Modernizr -->
+        <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
+        <script src="/js/conexion.js"></script>
+        <script src="/js/formEmpresas.js"></script>
+        <script src="/js/tablaFirstTime.js"></script>
+        <script>
+            var level = 0;
+            function initApp() {
+                table2();
+
+                document.getElementById('logout').addEventListener('click', logout, false);
             }
-            if (correoceo.length == 0) {
-                alert('Ingresa un correo para el CEO de ' + empresa + '.');
-                return;
+
+            function logout(){
+                firebase.auth().signOut();
+                window.location="https://aleph-b9912.firebaseapp.com/Sit.html";
             }
-            var database = firebase.database();
-            firebase.database().ref('empresasPendientes/' + empresa + '/').set({
-                correoCEO: correoceo
+            window.onload = function () {
+                initApp();
+            };
+        </script>
+    </head>
+    <body>
+        <script src="/js/nivelUsuario.js"></script>
+        <header class="cd-main-header">
+            <a href="#0" class="cd-logo"><img src="src/img/cd-logo.svg" alt="Logo"></a>
+            <div class="cd-search is-hidden">
+                <form action="#0">
+                    <input type="search" placeholder="Search...">
+                </form>
+            </div>
+            <!-- cd-search -->
+            <a href="#0" class="cd-nav-trigger"><span></span></a>
+            <nav class="cd-nav">
+                <ul class="cd-top-nav">
+                    <li><a href="#0">Notificacion</a></li>
+                    <li><a href="#0">Ayuda</a></li>
+                    <li class="has-children account">
+                        <a href="#0">
+                            <img src="src/img/user-image.png" alt="avatar"> Jesus
+                        </a>
+                        <ul>
+                            <li><a href="#0">Mi cuenta</a></li>
+                            <li><a href="#0">Editar Cuenta</a></li>
+                            <li id="logout"><a>Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </header><!-- .cd-main-header -->
+            <!-- .cd-main-header -->
+        <main class="cd-main-content">
+            <nav class="cd-side-nav">
+                <ul>
+                    <li class="cd-label">Main</li>
+                    <li class="overview">
+                        <a href="MainAleph.html">Empresas</a>
+                    </li>
+                    <li class="has-children active users">
+                        <a href="">Usuarios</a>
+                        <ul>
+                            <li><a href="MainAlephEmpresas.html">Empresas</a></li>
+                            <li><a href="MainAlephEmpleados.html">Empleados</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="content-wrapper">
+            <table id="example" class="ui celled table" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>Empresa</th>
+                        <th> Status</th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Empresa</th>
+                        <th> Status</th>
+                        <th> </th>
+
+                    </tr>
+                </tfoot>
+                <tbody id="table">
+
+                </tbody>
+            </table>
+            <button id="show" class="ui test button">Agrega Empresa</button>
+            <div class="ui modal">
+                <i class="close icon"></i>
+                <div class="header">
+                    Empresa
+                </div>
+                <div class="image content">
+                    <div class="description">
+                        <input type="text" id="empresa" placeholder="Nombre Empresa">
+                        <br>
+                        <input type="text" id="nombreCEO" placeholder="Nombre CEO">
+                        <br>
+                        <input type="text" id="correoCEO" placeholder="Correo CEO">
+                    </div>
+                </div>
+                <div class="actions">
+                    <div class="ui black deny button">
+                        Nope
+                    </div>
+                    <div class="ui positive right animated button" tabindex="0" id="Empleado">
+                        <div class="visible content">Guardar</div>
+                        <div class="hidden content" id="Empresa">
+                            <i class="send icon"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div> <!-- .content-wrapper -->
+        </main> <!-- .cd-main-content -->
+        <script src="src/js/jquery-2.1.4.js"></script>
+        <script src="src/js/jquery.menu-aim.js"></script>
+        <script src="src/js/main.js"></script> <!-- Resource jQuery -->
+        <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.13/js/dataTables.semanticui.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
+        <script>
+
+        $('.ui.modal')
+          .modal('attach events', '#show', 'show')
+        ;
+
+        setTimeout(function() {
+            $(document).ready(function() {
+            $('#example').DataTable({
+                "language": {
+                            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                }
             });
-            document.getElementById('empresa').value = "";
-            document.getElementById('correoCEO').value = "";
-        }
-
-        function initApp() {
-            document.getElementById('Empresa').addEventListener('click', guardarEmpresa, false);
-            document.getElementById('usuario').addEventListener('click', usuario, false);
-        }
-
-        function usuario() {
-            alert(firebase.auth().currentUser.email);
-        }
-        window.onload = function () {
-            initApp();
-        };
+        } );
+        }, 5000);
 
 
-        function logout(){
-            firebase.auth().signOut();
-            window.location="https://aleph-b9912.firebaseapp.com/Sit.html";
-        }
-        document.getElementById('logout').addEventListener('click', logout, false);
-
-    </script>
-    <tittle>Responsive</tittle>
-</head>
-
-<body>
-<script src="/js/nivelUsuario.js"></script>
-    <header class="cd-main-header">
-        <a href="#0" class="cd-logo"><img src="src/img/cd-logo.svg" alt="Logo"></a>
-
-        <div class="cd-search is-hidden">
-            <form action="#0">
-                <input type="search" placeholder="Search...">
-            </form>
-        </div>
-        <!-- cd-search -->
-
-        <a href="#0" class="cd-nav-trigger"><span></span></a>
-
-        <nav class="cd-nav">
-            <ul class="cd-top-nav">
-                <li><a href="#0">Notificacion</a></li>
-                <li><a href="#0">Ayuda</a></li>
-                <li class="has-children account">
-                    <a href="#0">
-                        <img src="src/img/user-image.png" alt="avatar"> Jesus
-                    </a>
-
-                    <ul>
-
-                        <li><a href="#0">Mi cuenta</a></li>
-                        <li><a href="#0">Editar Cuenta</a></li>
-                        <li id="logout"><a>Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-    </header><!-- .cd-main-header -->
-
-
-    <!-- .cd-main-header -->
-    <main class="cd-main-content">
-        <nav class="cd-side-nav">
-            <ul>
-                <li class="cd-label">Main</li>
-                <li class=" active overview">
-                    <a href="MainAleph.html">Empresas</a>
-
-                    <!--	<ul>
-						<li><a href="#0">All Data</a></li>
-						<li><a href="#0">Category 1</a></li>
-						<li><a href="#0">Category 2</a></li>
-					</ul>-->
-                </li>
-                <li class="has-children users">
-
-                    <a href="#0">Usuarios</a>
-
-                    <ul>
-                        <li><a href="MainAlephEmpresas.html">Empresas</a></li>
-                        <li><a href="MainAlephEmpleados.html">Empleados</a></li>
-                    </ul>
-                </li>
-            </ul>
-
-            <!--<ul>
-				<li class="cd-label">Secondary</li>
-				<li class="has-children bookmarks">
-					<a href="#0">Bookmarks</a>
-
-					<ul>
-						<li><a href="#0">All Bookmarks</a></li>
-						<li><a href="#0">Edit Bookmark</a></li>
-						<li><a href="#0">Import Bookmark</a></li>
-					</ul>
-				</li>
-				<li class="has-children images">
-					<a href="#0">Images</a>
-
-					<ul>
-						<li><a href="#0">All Images</a></li>
-						<li><a href="#0">Edit Image</a></li>
-					</ul>
-				</li>
-
-				<li class="has-children users">
-					<a href="#0">Users</a>
-
-					<ul>
-						<li><a href="#0">All Users</a></li>
-						<li><a href="#0">Edit User</a></li>
-						<li><a href="#0">Add User</a></li>
-					</ul>
-				</li>
-			</ul>
-
-			<ul>
-				<li class="cd-label">Action</li>
-				<li class="action-btn"><a href="#0">+ Button</a></li>
-			</ul>-->
-        </nav>
-		</nav>
-
-		<div class="content-wrapper">
-
-		</div> <!-- .content-wrapper -->
-	</main> <!-- .cd-main-content -->
-<script src="src/js/jquery-2.1.4.js"></script>
-<script src="src/js/jquery.menu-aim.js"></script>
-<script src="src/js/main.js"></script> <!-- Resource jQuery -->
-<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
-<script>
-
-$('.ui.modal')
-  .modal('attach events', '#show', 'show')
-;
-</script>
-</body>
+        </script>
+    </body>
 </html>
