@@ -4,36 +4,51 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>SIT</title>
+        <!--HOJAS DE ESTILOS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/dataTables.semanticui.min.css">
-
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="src/css/reset.css"> <!-- CSS reset -->
         <link rel="stylesheet" href="src/css/style.css"> <!-- Resource style -->
+        <!--TERMINA HOJAS DE ESTILO -->
+
+        <!--SCRIPTS DE FUNCION PAGINA -->
         <script src="src/js/modernizr.js"></script> <!-- Modernizr -->
         <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
+
+        <!-- SCRIPTS INDIVIDAULES POR PAGINA    -->
         <script src="/js/conexion.js"></script>
         <script src="/js/formEmpresas.js"></script>
-        <script src="/js/tablaFirstTime.js"></script>
+        <script src="/js/tablaEmpresa.js"></script>
+        <script src="/js/nivelUsuario.js"></script>
+
+        <!-- FIN SCRIPTS -->
+
+        <!-- SCRIPTS DE PRUEBAS -->
         <script>
             var level = 0;
             function initApp() {
-                table2();
-
+                table();
                 document.getElementById('logout').addEventListener('click', logout, false);
+                document.getElementById('Empresa').addEventListener('click', guardarEmpresa, false);
+                document.getElementById('usuario').addEventListener('click', usuario, false);
             }
 
             function logout(){
                 firebase.auth().signOut();
                 window.location="https://aleph-b9912.firebaseapp.com/Sit.html";
             }
+            function usuario() {
+                alert(firebase.auth().currentUser.email);
+            }
             window.onload = function () {
                 initApp();
             };
         </script>
+        <!---------------------------------------------------------------------------------->
     </head>
     <body>
-        <script src="/js/nivelUsuario.js"></script>
+
         <header class="cd-main-header">
             <a href="#0" class="cd-logo"><img src="src/img/cd-logo.svg" alt="Logo"></a>
             <div class="cd-search is-hidden">
@@ -76,93 +91,26 @@
                         </ul>
                     </li>
                 </ul>
-                 <ul>
-                    <li class="cd-label">Administrar</li>
-                    <li class="overview">
-                        <a href="">Ususarios</a>
-                    </li>
-                    <li class="has-children active users">
-                        <a href="">Usuarios</a>
-                        <ul>
-                            <li><a href="MainAlephEmpresas.html">Empresas</a></li>
-                            <li><a href="MainAlephEmpleados.html">Empleados</a></li>
-                        </ul>
-                    </li>
-                </ul>
             </nav>
             <div class="content-wrapper">
-            <table id="example" class="ui celled table" cellspacing="0" width="100%">
-                <thead>
-                    <tr>
-                        <th>Empresa</th>
-                        <th> Status</th>
-                        <th> </th>
-                    </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                        <th>Empresa</th>
-                        <th> Status</th>
-                        <th> </th>
 
-                    </tr>
-                </tfoot>
-                <tbody id="table">
-
-                </tbody>
-            </table>
-            <button id="show" class="ui test button">Agrega Empresa</button>
-            <div class="ui modal">
-                <i class="close icon"></i>
-                <div class="header">
-                    Empresa
-                </div>
-                <div class="image content">
-                    <div class="description">
-                        <input type="text" id="empresa" placeholder="Nombre Empresa">
-                        <br>
-                        <input type="text" id="nombreCEO" placeholder="Nombre CEO">
-                        <br>
-                        <input type="text" id="correoCEO" placeholder="Correo CEO">
-                    </div>
-                </div>
-                <div class="actions">
-                    <div class="ui black deny button">
-                        Nope
-                    </div>
-                    <div class="ui positive right animated button" tabindex="0" id="Empleado">
-                        <div class="visible content">Guardar</div>
-                        <div class="hidden content" id="Empresa">
-                            <i class="send icon"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
             </div> <!-- .content-wrapper -->
         </main> <!-- .cd-main-content -->
+
+         <!--SCRIPTS DE FUNCION PAGINA -->
         <script src="src/js/jquery-2.1.4.js"></script>
         <script src="src/js/jquery.menu-aim.js"></script>
         <script src="src/js/main.js"></script> <!-- Resource jQuery -->
         <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.10.13/js/dataTables.semanticui.min.js"></script>
         <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
+        <!-------------------------------------------------------------------------------->
+
+        <!-- SCRIPTS INDIVIDUALES O DE PRUEBA --->
         <script>
 
-        $('.ui.modal')
-          .modal('attach events', '#show', 'show')
-        ;
-
-        setTimeout(function() {
-            $(document).ready(function() {
-            $('#example').DataTable({
-                "language": {
-                            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
-                }
-            });
-        } );
-        }, 5000);
-
-
         </script>
+
+        <!----------------------------------------->
     </body>
 </html>

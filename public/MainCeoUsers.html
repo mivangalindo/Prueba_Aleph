@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en" class="no-js">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SIT</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/dataTables.semanticui.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="src/css/reset.css">
+    <!-- CSS reset -->
+    <link rel="stylesheet" href="src/css/style.css">
+    <!-- Resource style -->
+    <script src="src/js/modernizr.js"></script>
+    <!-- Modernizr -->
+    <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
+    <script src="/js/conexion.js"></script>
+
+    <script>
+        var level = 0;
+
+        function initApp() {
+            table();
+            document.getElementById('logout').addEventListener('click', logout, false);
+            document.getElementById('Empleado').addEventListener('click', guardarEmpleado, false);
+
+        }
+
+        function logout() {
+            firebase.auth().signOut();
+            window.location = "https://aleph-b9912.firebaseapp.com/Sit.html";
+        }
+
+        function usuario() {
+            alert(firebase.auth().currentUser.email);
+        }
+        window.onload = function () {
+            initApp();
+        };
+    </script>
+</head>
+
+<body>
+    <script src="/js/nivelUsuario.js"></script>
+    <header class="cd-main-header">
+        <a href="#0" class="cd-logo"><img src="src/img/cd-logo.svg" alt="Logo"></a>
+        <div class="cd-search is-hidden">
+            <form action="#0">
+                <input type="search" placeholder="Search...">
+            </form>
+        </div>
+        <!-- cd-search -->
+        <a href="#0" class="cd-nav-trigger"><span></span></a>
+        <nav class="cd-nav">
+            <ul class="cd-top-nav">
+                <li><a href="#0">Notificacion</a></li>
+                <li><a href="#0">Ayuda</a></li>
+                <li class="has-children account">
+                    <a href="#0">
+                        <img src="src/img/user-image.png" alt="avatar"> Jesus
+                    </a>
+                    <ul>
+                        <li><a href="#0">Mi cuenta</a></li>
+                        <li><a href="#0">Editar Cuenta</a></li>
+                        <li id="logout"><a>Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <!-- .cd-main-header -->
+    <!-- .cd-main-header -->
+    <main class="cd-main-content">
+          <nav class="cd-side-nav">
+            <ul>
+                <li class="cd-label">Main</li>
+                <li class="overview">
+                    <a href="">Objetivos Estrategicos</a>
+                </li>
+                <li class="overview">
+                    <a href="">Gestion Organizacional</a>
+                </li>
+                <li class="overview">
+                    <a href="">Politicas y Procedimientos</a>
+                </li>
+                <li class="overview">
+                    <a href="">Formacion</a>
+                </li>
+                <!--
+                    <li class="has-children active users">
+                        <a href="">Usuarios</a>
+                        <ul>
+                            <li><a href="MainAlephEmpresas.html">Empresas</a></li>
+                            <li><a href="MainAlephEmpleados.html">Empleados</a></li>
+                        </ul>
+                    </li>
+-->
+            </ul>
+            <ul>
+                <li class="cd-label">Administrar</li>
+                <li class="users">
+                    <a href="">Usuarios</a>
+                </li>
+                <li class="overview">
+                    <a href="">Areas</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="content-wrapper">
+
+
+
+            <table id="example" class="ui celled table" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>Empleado</th>
+                        <th> Empresa</th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Empleado</th>
+                        <th> Empres</th>
+                        <th> </th>
+
+                    </tr>
+                </tfoot>
+                <tbody id="table">
+
+                </tbody>
+            </table>
+            <button id="show" class="ui test button">Agregar Empleado</button>
+            <div class="ui modal">
+                <div class="header">Empleado</div>
+                <div class="content">
+                    <form class="ui big form">
+                        <div class="field">
+                            <label>Nombre</label>
+                            <div class="two fields">
+                                <div class="field">
+                                    <input id="empleado" type="text" name="shipping[first-name]" placeholder="Nombre">
+                                </div>
+                                <div class="field">
+                                    <input type="text" name="shipping[last-name]" placeholder="Apellido">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Correo</label>
+                            <div class="fields">
+                                <div class="ten wide field">
+                                    <input id="correoEmpleado" type="text" name="shipping[address]" placeholder="example@mail.com">
+                                </div>
+
+                            </div>
+
+                            <div class="field">
+                                <label>Empresa</label>
+                                <div class="ui selection dropdown">
+                                    <input id="nombreEmpresa" type="hidden" name="gender">
+                                    <i class="dropdown icon"></i>
+                                    <div class="default text">Empresa</div>
+                                    <div class="menu" id="add-empresa">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="actions">
+                    <div class="ui approve button" id="Empleado">Enviar</div>
+                    <div class="ui cancel button">Cancelar</div>
+                </div>
+            </div>
+
+
+
+        </div>
+        <!-- .content-wrapper -->
+    </main>
+    <!-- .cd-main-content -->
+    <script src="src/js/jquery-2.1.4.js"></script>
+    <script src="src/js/jquery.menu-aim.js"></script>
+    <script src="src/js/main.js"></script>
+    <!-- Resource jQuery -->
+    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.13/js/dataTables.semanticui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
+
+    <script>
+        $('.dropdown')
+            .dropdown();
+
+        $('.ui.modal')
+            .modal('attach events', '#show', 'show');
+
+          setTimeout(function() {
+            $(document).ready(function() {
+            $('#example').DataTable({
+                "language": {
+                            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                }
+            });
+        } );
+        }, 5000);
+    </script>
+</body>
+
+</html>

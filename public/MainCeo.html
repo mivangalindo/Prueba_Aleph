@@ -1,112 +1,767 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Main CEO</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="src/js/modernizr.js"></script> <!-- Modernizr -->
-        <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
-        <script src="/js/conexion.js" ></script>
-        <script src="/js/formEmpleados.js"></script>
-        <script src="/js/checarConexion.js" ></script>
-        <script src="/js/tablaEmpleados.js"></script>
-        <script>
-            var level = 1;
-            function initApp(){
-                table();
-                document.getElementById('Empleado').addEventListener('click', guardarEmpleado, false);
-                //document.getElementById('Area').addEventListener('click', guardarArea, false);
-            }
-            function usuario(){
-                alert(firebase.auth().currentUser.uid);
-            }
-            window.onload = function() {
-              initApp();
-            };
+<!doctype html>
+<html lang="en" class="no-js">
 
-        </script>
-    </head>
-    <body>
-        <script src="/js/nivelUsuario.js" ></script>
-        <header id="barraMenu"></header>
-        <table class="ui compact celled definition table">
-            <thead>
-                <tr>
-                    <th>Empleados</th>
-                </tr>
-            </thead>
-            <tbody id="table">
-            </tbody>
-        </table>
-        <button id="show" class="ui test button">Agrega Empleado</button>
-        <div class="ui modal">
-          <i class="close icon"></i>
-          <div class="header">
-            Empleado
-          </div>
-          <div class="image content">
-            <div class="description">
-                <input type="text" id="empleado" placeholder="Nombre empleado">
-                <br>
-                <input type="text" id="correoEmpleado" placeholder="Correo empleado">
-                <br>
-                <select id="puesto">
-                    <option value="---">Puesto</option>
-                    <option value="4">Subordinado</option>
-                    <option value="3">Jefe</option>
-                    <option value="2">Director</option>
-                </select>
-                <br>
-                <select id="area">
-                    <option value="---">Área</option>
-                    <option value="uno">uno</option>
-                    <option value="dos">dos</option>
-                    <option value="tres">tres</option>
-                </select>
-                <br>
-                <div class="field">
-                    <label>Áreas</label>
-                    <div class="ui selection dropdown">
-                        <input id="nombreEmpresa" type="hidden" name="gender">
-                        <i class="dropdown icon"></i>
-                        <div class="default text">Áreas</div>
-                        <div class="menu" id="add-empresa">
-                        </div>
-                    </div>
-                </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SIT</title>
+    <!--HOJAS DE ESTILOS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/dataTables.semanticui.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="src/css/reset.css">
+    <!-- CSS reset -->
+    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="stylesheet" href="src/dist/css/jquery.orgchart.css">
+    <!-- Resource style -->
+    <!--TERMINA HOJAS DE ESTILO -->
+
+    <!--SCRIPTS DE FUNCION PAGINA -->
+    <script src="src/js/modernizr.js"></script>
+
+    <!-- Modernizr -->
+    <script src="https://www.gstatic.com/firebasejs/3.6.2/firebase.js"></script>
+    <script src="src/dist/js/jquery.orgchart.js"></script>
+    <!-- SCRIPTS INDIVIDAULES POR PAGINA    -->
+    <script src="/js/conexion.js"></script>
+    <script src="/js/formEmpresas.js"></script>
+    <script src="/js/tablaEmpresa.js"></script>
+    <script src="/js/nivelUsuario.js"></script>
+
+    <!-- FIN SCRIPTS -->
+<style>
+/* ---- setup ---- */
+
+body {
+  font-family: open sans, sans-serif;
+}
+
+.container {
+  margin: 2rem auto;
+  max-width: 1088px;
+}
+@media screen and (max-width: 1121px) {
+  .container {
+  max-width: 878px;
+  }
+}
+@media screen and (max-width: 911px) {
+  .container {
+  max-width: 668px;
+  }
+}
+
+.container * {
+  box-sizing: border-box;
+}
+
+.level {
+  display: block;
+}
+
+.level-wrap {
+  padding: 8px;
+  margin-bottom: 2rem;
+  position: relative;
+  display: inline-block;
+}
+
+.level:nth-child(n+2) .level-wrap:before {
+  content: " ";
+  position: absolute;
+  top:-2px;
+  left:-2px;
+  width: 100%;
+  height: 10px;
+  border: 2px solid #0385AA;
+  border-bottom: none;
+  background: white;
+}
+
+.level .col--1-3 {
+  margin-left: 220px;
+  border-left: 2px dashed #efefef;
+  padding-left: 10px;
+  height:100%;
+}
+
+.level .col--1-3:first-of-type {
+  float: left;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.level ul {
+  margin: 0;
+  padding:0;
+  flex-wrap: wrap;
+  display: flex;
+  align-items: stretch;
+}
+
+/* ---- .element-item ---- */
+
+.element-item {
+  position: relative;
+  display: inline-block;
+  width: 200px;
+  margin: 5px;
+  background: #ffffff;
+  border: 2px solid #E5E5E5;
+  color: black;
+}
+
+/*
+.element-item * {
+  -webkit-transition: background .3s, border .3s;
+  transition: background .3s, border .3s;
+}
+*/
+
+.info {
+  position: relative;
+  display: block;
+  height:100%;
+}
+
+.info-header {
+  display: block;
+  background: #E5E5E5;
+  padding: 5px 35px 5px 10px;
+  color: black;
+  position: relative;
+}
+
+.info h4 {
+  margin: 0 0 2px;
+  font-size: 13px;
+}
+
+.info p {
+  margin: 10px 0;
+  font-size: 12px;
+}
+
+.info p:last-child {
+  margin: 10px 0 0 0;
+}
+
+.info-details {
+  padding: 0 10px;
+  margin-bottom: 40px;
+}
+
+.info-btn {
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  background: #0385AA;
+  color: white;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  margin: -2px 0 10px -2px;
+}
+
+.element-item .context {
+  position: absolute;
+  border-left: 1px solid rgba(0, 0, 0, 0.05);
+  background: #E5E5E5;
+  text-align: center;
+  width: 26px;
+  height: 100%;
+  padding: 4px 2px 4px 4px;
+  right: 0;
+  top: 0;
+}
+
+.element-item .context:after {
+  content: " ";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-bottom:15px solid transparent;
+  border-top:0px solid transparent;
+  border-right:26px solid #E5E5E5;
+  right: 0px;
+  bottom: -15px;
+}
+
+/* --- active item --- */
+
+.item-active .element-item,
+.item-list .selection {
+  border: 2px solid #0385AA;
+  background: #f5f5f5;
+}
+
+.item-active .info-header,
+.item-active .context,
+.item-list .selection .info-header,
+.item-list .selection .context {
+  background: #0385AA;
+  color: white;
+}
+
+.item-active .context:after,
+.item-list .selection .context:after{
+  border-right-color: #0385AA;
+}
+
+.item-list .selection {
+  opacity: 0.5;
+  background: white;
+  pointer-events: none;
+}
+
+.item-active .element-item:empty{
+  border-color: #E5E5E5;
+  min-height: 122px;
+  background: repeating-linear-gradient(
+    45deg,
+    #F2F2F2,
+    #F2F2F2 10px,
+    #E5E5E5 10px,
+    #E5E5E5 20px
+  );
+}
+
+.item-active .element-item:empty:before {
+  content: "Select an Org Unit";
+  color: grey;
+  text-align: center;
+  display: block;
+  position: absolute;
+  font-size: 12px;
+  width: 100%;
+  top: calc(50% - 14px);
+  background: #e5e5e5;
+  padding: 5px 0;
+}
+
+.item-active .element-item {
+  opacity: 1;
+}
+
+.expanded .item-active:after {
+  content: " ";
+  position: absolute;
+  height: 100%;
+  left: 110px;
+  bottom: -35px;
+  border-left: 2px solid #0385AA;
+  z-index: -1;
+}
+
+.expanded:last-of-type .item-active:after {
+  display: none;
+}
+
+.item-list .selection:after {
+  content: " ";
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  border-top:6px solid transparent;
+  border-bottom:0px solid transparent;
+  border-left:14px solid #0385AA;
+  left: -12px;
+  bottom: 2px;
+
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+
+/* ---- hover ---- */
+
+.info-header:hover,
+.info-header:hover .context,
+.info-btn:hover {
+  cursor: pointer;
+  background: #444444;
+  color: white;
+}
+
+.element-item.hover .context:after {
+  border-right-color: #444444;
+}
+
+.element-item.hover {
+  border-color: #444444;
+}
+
+.item-list .element-item .info-header:hover,
+.item-list .element-item .info-header:hover .context,
+.item-list .element-item .info-header:hover h4 {
+  cursor: pointer;
+  background: #444444;
+  color: white;
+}
+
+.item-list .element-item:hover .info-header:hover + .context:after{
+  border-right-color: #444444;
+}
+
+.item-list .element-item:hover {
+  background: #fdfdfd;
+}
+
+.hover-expanded .item-active:after,
+.hover-children .level-wrap:before {
+  border-color: #444444 !important;
+}
+
+/* ---- misc ---- */
+
+.hidden {
+  display: none;
+}
+
+.org-name {
+  color: #0385AA;
+}
+
+.selection .org-name, .item-active .org-name{
+  color: #ffffff;
+}
+
+/* dsiable arrow thing */
+.element-item .context:after {
+  display: none;
+}
+</style>
+    <!-- SCRIPTS DE PRUEBAS -->
+
+    <script>
+        var level = 0;
+
+        function initApp() {
+            table();
+            document.getElementById('logout').addEventListener('click', logout, false);
+            document.getElementById('Empresa').addEventListener('click', guardarEmpresa, false);
+            document.getElementById('usuario').addEventListener('click', usuario, false);
+        }
+
+        function logout() {
+            firebase.auth().signOut();
+            window.location = "https://aleph-b9912.firebaseapp.com/Sit.html";
+        }
+
+        function usuario() {
+            alert(firebase.auth().currentUser.email);
+        }
+        window.onload = function () {
+            initApp();
+        };
+    </script>
+    <!---------------------------------------------------------------------------------->
+</head>
+
+<body>
+
+    <header class="cd-main-header">
+        <a href="#0" class="cd-logo"><img src="src/img/cd-logo.svg" alt="Logo"></a>
+        <div class="is-hidden">
+
+        </div>
+        <!-- cd-search -->
+        <a href="#0" class="cd-nav-trigger"><span></span></a>
+        <nav class="cd-nav">
+            <ul class="cd-top-nav">
+                <li><a href="#0">Notificacion</a></li>
+                <li><a href="#0">Ayuda</a></li>
+                <li class="has-children account">
+                    <a href="#0">
+                        <img src="src/img/user-image.png" alt="avatar"> Jesus
+                    </a>
+                    <ul>
+                        <li><a href="#0">Mi cuenta</a></li>
+                        <li><a href="#0">Editar Cuenta</a></li>
+                        <li id="logout"><a>Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <!-- .cd-main-header -->
+    <!-- .cd-main-header -->
+    <main class="cd-main-content">
+        <nav class="cd-side-nav">
+            <ul>
+                <li class="cd-label">Main</li>
+                <li class="overview">
+                    <a href="">Objetivos Estrategicos</a>
+                </li>
+                <li class="overview">
+                    <a href="">Gestion Organizacional</a>
+                </li>
+                <li class="overview">
+                    <a href="">Politicas y Procedimientos</a>
+                </li>
+                <li class="overview">
+                    <a href="">Formacion</a>
+                </li>
+                <!--
+                    <li class="has-children active users">
+                        <a href="">Usuarios</a>
+                        <ul>
+                            <li><a href="MainAlephEmpresas.html">Empresas</a></li>
+                            <li><a href="MainAlephEmpleados.html">Empleados</a></li>
+                        </ul>
+                    </li>
+-->
+            </ul>
+            <ul>
+                <li class="cd-label">Administrar</li>
+                <li class="users">
+                    <a href="">Usuarios</a>
+                </li>
+                <li class="overview">
+                    <a href="">Areas</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="content-wrapper">
+<br>
+<div class="ui segment">
+  <section class="container">
+  <div id="level--0" class="level expanded">
+    <div class="level-wrap">
+      <div id="level--0--item-active" class="col--1-3 item-active">
+        <div class="element-item">
+          <div class="info">
+            <div class="info-header">
+              <h4 class="org-name">Perspectiva Fianciera <i class="fa fa-chevron-right" aria-hidden="true" style="font-size: 11px;"></i>
+                  </h4>
+              <div class="context">
+                <i class="fa fa-building-o" title="National facilities" aria-hidden="true"></i>
+              </div>
             </div>
-          </div>
-          <div class="actions">
-            <div class="ui black deny button">
-              Nope
+            <div class="info-details">
+              <p class="leader-name">Placeholder Name</p>
             </div>
-            <div class="ui positive right animated button" tabindex="0" id="Empleado">
-                <div class="visible content">Guardar</div>
-                <div class="hidden content" id="Empleado">
-                    <i class="send icon"></i>
-                </div>
-            </div>
+            <a href="#" class="info-btn">
+              <i class="fa fa-info" aria-hidden="true"></i>
+            </a>
           </div>
         </div>
-        <br><br>
-        <!--AREA-------------------->
-        <br>
-            Con HTML5 no permitir acentos ni simbolos, pura letra.<br>
-            <input type="text" id="Area" placeholder="Área">
-            <button onClick="guardarArea()">Guardar Área</button>
-        <br>
-        <br><br>
-        <!--<script src="js/checarConexion.js"></script>-->
-        <button onclick="usuario()">Usuario</button>
-        <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
-        <script>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div id="level--1" class="level">
+    <div class="level-wrap">
+      <div id="level--1--item-active" class="col--1-3 item-active">
+        <div class="element-item"></div>
+      </div>
+      <div id="level--1--item-list" class="col--1-3 item-list">
+        <ul>
+
+          <li class="element-item">
+            <div class="info">
+              <div class="info-header">
+                <h4 class="org-name">Clientes<i class="fa fa-chevron-right" aria-hidden="true" style="font-size: 11px;"></i></h4>
+                <div class="context">
+                  <i class="fa fa-building-o" title="National facilities" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div class="info-details">
+                <p class="leader-name">Task 1</p>
+              </div>
+              <a href="#" class="info-btn">
+                <i class="fa fa-info" aria-hidden="true"></i>
+              </a>
+            </div>
+          </li>
+          <li class="element-item">
+            <div class="info">
+              <div class="info-header">
+                <h4 class="org-name">Clientes<i class="fa fa-chevron-right" aria-hidden="true" style="font-size: 11px;"></i></h4>
+                <div class="context">
+                  <i class="fa fa-building-o" title="National facilities" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div class="info-details">
+                <p class="leader-name">Task 2</p>
+              </div>
+              <a href="#" class="info-btn">
+                <i class="fa fa-info" aria-hidden="true"></i>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="level--2" class="level hidden">
+    <div class="level-wrap">
+      <div id="level--2--item-active" class="col--1-3 item-active">
+        <div class="element-item"></div>
+      </div>
+      <div id="level--2--item-list" class="col--1-3 item-list">
+        <ul>
+
+          <li class="element-item">
+            <div class="info">
+              <div class="info-header">
+                <h4 class="org-name">Procesos Internos <i class="fa fa-chevron-right" aria-hidden="true" style="font-size: 11px;"></i></h4>
+                <div class="context">
+                  <i class="fa fa-building-o" title="National facilities" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div class="info-details">
+                <p class="leader-name">Task 1</p>
+              </div>
+              <a href="#" class="info-btn">
+                <i class="fa fa-info" aria-hidden="true"></i>
+              </a>
+            </div>
+          </li>
+
+                <li class="element-item">
+            <div class="info">
+              <div class="info-header">
+                <h4 class="org-name">Procesos Internos <i class="fa fa-chevron-right" aria-hidden="true" style="font-size: 11px;"></i></h4>
+                <div class="context">
+                  <i class="fa fa-building-o" title="National facilities" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div class="info-details">
+                <p class="leader-name">Placeholder Name</p>
+              </div>
+              <a href="#" class="info-btn">
+                <i class="fa fa-info" aria-hidden="true"></i>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="level--3" class="level hidden">
+    <div class="level-wrap">
+      <div id="level--3--item-active" class="col--1-3 item-active">
+        <div class="element-item"></div>
+      </div>
+      <div id="level--3--item-list" class="col--1-3 item-list">
+        <ul>
+
+          <li class="element-item">
+            <div class="info">
+              <div class="info-header">
+                <h4 class="org-name">Recursos Humanos <i class="fa fa-chevron-right" aria-hidden="true" style="font-size: 11px;"></i></h4>
+                <div class="context">
+                  <i class="fa fa-building-o" title="National facilities" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div class="info-details">
+                <p class="leader-name">Placeholder Name</p>
+              </div>
+              <a href="#" class="info-btn">
+                <i class="fa fa-info" aria-hidden="true"></i>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+            <div class="ui segment">
+
+
+
+            <table id="example" class="ui celled table" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Perspectiva</th>
+                        <th>Status</th>
+                        <th>Onjetivos</th>
+                        <th>Responsable</th>
+                        <th>Metas</th>
+                        <th>Real</th>
+                        <th>Diferencia</th>
+                    </tr>
+                </thead>
+                <tbody id="table">
+<th>#</th>
+                        <th>Perspectiva</th>
+                        <th>Status</th>
+                        <th>Onjetivos</th>
+                        <th>Responsable</th>
+                        <th>Metas</th>
+                        <th>Real</th>
+                        <th>Diferencia</th>
+                </tbody>
+            </table>
+            <button id="show" class="ui test button">Agregar Empleado</button>
+            <div class="ui modal">
+                <div class="header">Empleado</div>
+                <div class="content">
+                    <form class="ui big form">
+                        <div class="field">
+                            <label>Nombre</label>
+                            <div class="two fields">
+                                <div class="field">
+                                    <input id="empleado" type="text" name="shipping[first-name]" placeholder="Nombre">
+                                </div>
+                                <div class="field">
+                                    <input type="text" name="shipping[last-name]" placeholder="Apellido">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Correo</label>
+                            <div class="fields">
+                                <div class="ten wide field">
+                                    <input id="correoEmpleado" type="text" name="shipping[address]" placeholder="example@mail.com">
+                                </div>
+
+                            </div>
+
+                            <div class="field">
+                                <label>Empresa</label>
+                                <div class="ui selection dropdown">
+                                    <input id="nombreEmpresa" type="hidden" name="gender">
+                                    <i class="dropdown icon"></i>
+                                    <div class="default text">Empresa</div>
+                                    <div class="menu" id="add-empresa">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="actions">
+                    <div class="ui approve button" id="Empleado">Enviar</div>
+                    <div class="ui cancel button">Cancelar</div>
+                </div>
+            </div>
+
+            </div>
+
+        </div>
+        <!-- .content-wrapper -->
+    </main>
+    <!-- .cd-main-content -->
+
+    <!--SCRIPTS DE FUNCION PAGINA -->
+    <script src="src/js/jquery-2.1.4.js"></script>
+    <script src="src/js/jquery.menu-aim.js"></script>
+    <script src="src/js/main.js"></script>
+    <!-- Resource jQuery -->
+    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.13/js/dataTables.semanticui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
+    <!-------------------------------------------------------------------------------->
+
+    <!-- SCRIPTS INDIVIDUALES O DE PRUEBA --->
+    <script>
+        $(document).ready(function(){
+
+    // active classes
+    var $LevelParentClass = '.level';
+    var $itemListParentClass = '.item-list';
+    var $itemActiveParentClass = '.item-active';
+
+
+    // move items
+    function moveSelected($itemSelected) {
+
+      var $levelParent = $($itemSelected).closest($LevelParentClass);
+      var $itemListParent = $($itemSelected).closest($itemListParentClass);
+      var $itemContainer = $($itemSelected).parent();
+      var $destination = $($itemListParent).siblings($itemActiveParentClass).children().first();
+      var $newContent = $($itemSelected).html();
+
+      // update selected content section
+      $($destination).html($newContent);
+
+      // fade animation to look like refresh
+      $($itemListParent).siblings($itemActiveParentClass).fadeOut(0).fadeIn(300);
+      $($levelParent).nextAll().not('.hidden').fadeOut(0).fadeIn(300);
+
+      // toggle active item
+      $($itemContainer).children().removeClass('selection');
+      $($itemSelected).addClass('selection');
+
+      // show next row/level (in the real version this would actually load new items)
+      $($levelParent).next().removeClass('hidden');
+      $($levelParent).addClass('expanded');
+
+    }
+
+
+    // smooth scroll to current level
+    function scrollParent($scrollTarget){
+
+      var target = $scrollTarget;
+      event.preventDefault();
+        if (target.length) {
+          $('html, body').animate({
+            scrollTop: target.offset().top-15
+          }, 700);
+          return false;
+        }
+
+    }
+
+
+    // listeners
+    $(".info-header").on("click", function(){
+        scrollParent($(this).closest('.level'));
+        moveSelected($(this).closest('.element-item'));
+    });
+
+    $(document).on('mouseenter','.info-header', function (event) {
+       $(this).closest('.element-item').addClass('hover');
+       $(this).closest('.level').addClass('hover-expanded');
+       $(this).closest('.level').next('.level').addClass('hover-children');
+    }).on('mouseleave','.info-header',  function(){
+       $(this).closest('.element-item').removeClass('hover');
+       $(this).closest('.level').removeClass('hover-expanded');
+       $(this).closest('.level').next('.level').removeClass('hover-children');
+    });
+
+});
+
+         $('.dropdown')
+            .dropdown();
+
         $('.ui.modal')
-          .modal('attach events', '#show', 'show')
-        ;
-        </script>
-    </body>
-    <script src="js/traerContenido.js"></script>
+            .modal('attach events', '#show', 'show');
+
+          setTimeout(function() {
+            $(document).ready(function() {
+            $('#example').DataTable({
+                "language": {
+                            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                }
+            });
+        } );
+        }, 5000);
+    </script>
+
+    <!----------------------------------------->
+</body>
+
 </html>
